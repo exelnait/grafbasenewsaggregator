@@ -33,11 +33,17 @@ network:
  
 # Optional fields for more advanced use-cases.
 #
-#variables:                    # Pass environment variables as key value pairs.
-#  LOG_LEVEL: info
+variables:                    # Pass environment variables as key value pairs.
+  API_URL: https://grafbasenewsaggregator-tlavr.grafbase.app/graphql
 
 secrets:                      # Pass secrets from AWS Systems Manager (SSM) Parameter Store.
   YOUTUBE_API_KEY: YOUTUBE_API_KEY  # The key is the name of the environment variable, the value is the name of the SSM parameter.
+  GRAFBASE_API_KEY: GRAFBASE_API_KEY
+  S3_ACCESS_KEY_ID: ACCESS_KEY_ID
+  S3_SECRET_ACCESS_KEY: SECRET_ACCESS_KEY
+
+deployment:            # The deployment strategy for the "test" environment.
+   rolling: 'recreate' # Stops existing tasks before new ones are started for faster deployments.
 
 # You can override any of the values defined above by environment.
 #environments:

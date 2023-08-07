@@ -37,7 +37,7 @@ const newsItem = g
     // creator: g.relation(user),
     type: g.enumRef(sourceType),
     title: g.string().search(),
-    creator: g.string().unique().search(),
+    creator: g.string().search(),
     description: g.string().optional(),
     publishedAt: g.string(),
 
@@ -53,7 +53,7 @@ const newsItem = g
 const topic = g.model('Topic', {
   title: g.string(),
 
-  creator: g.string().unique().search(),
+  creator: g.string().search(),
   // creator: g.relation(() => user),
   publishers: g
     .relation(() => publisher)
@@ -80,7 +80,7 @@ const publisherSource = g
     isHidden: g.boolean().default(false),
     type: g.enumRef(sourceType),
     // creator: g.relation(() => user),
-    creator: g.string().unique(),
+    creator: g.string(),
     topic: g.relation(() => topic),
     publisher: g.relation(() => publisher),
     rss: g.ref(publisherSourceRSS).optional(),
@@ -91,7 +91,7 @@ const publisherSource = g
 const publisher = g.model('Publisher', {
   // creator: g.relation(() => user),
   title: g.string(),
-  creator: g.string().unique(),
+  creator: g.string(),
   topic: g.relation(() => topic),
   avatar: g.relation(() => picture),
   news: g

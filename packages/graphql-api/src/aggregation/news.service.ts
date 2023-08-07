@@ -13,8 +13,6 @@ import { convertHtmlToJson } from '../utils/rss/convert_html_to_json';
 import { saveFileByUrl } from '../utils/file.utils';
 import { NewsItemRSS } from './models/news_item_rss';
 
-const apiUrl = 'http://127.0.0.1:4000/graphql'; //process.env.GRAFBASE_API_URL
-
 @Injectable()
 export class NewsService {
   constructor() {}
@@ -55,11 +53,11 @@ export class NewsService {
   }
 
   async createNewsItems(input: NewsItemCreateInput[]): Promise<NewsItem[]> {
-    const data = await fetch(apiUrl, {
+    const data = await fetch(process.env.API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': '',
+        'x-api-key': process.env.GRAFBASE_API_KEY,
       },
 
       body: JSON.stringify({

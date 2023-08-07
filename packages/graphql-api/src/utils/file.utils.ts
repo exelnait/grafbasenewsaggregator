@@ -14,8 +14,8 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 let client = new S3Client({
   region: 'eu-central-1',
   credentials: {
-    accessKeyId: 'AKIA6JERAEWOYY5SBBKE',
-    secretAccessKey: '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',
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
   },
 });
 

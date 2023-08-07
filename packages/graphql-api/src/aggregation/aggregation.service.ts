@@ -14,8 +14,6 @@ import { normalizeYouTubeXMLFeedData } from '../utils/youtube/normalize_youtube_
 import { parseYouTubeXMLFeed } from '../utils/youtube/parse_youtube_xml';
 import { NewsItemYouTube } from './models/news_item_youtube';
 
-const apiUrl = 'http://127.0.0.1:4000/graphql'; //process.env.GRAFBASE_API_URL
-
 @Injectable()
 export class AggregationService {
   constructor(private readonly newsService: NewsService) {}

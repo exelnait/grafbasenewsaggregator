@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import './styles.css';
 import '@mantine/core/styles.css';
+import '@mantine/spotlight/styles.css';
 import { ColorSchemeScript, createTheme, MantineProvider } from '@mantine/core';
 
 import { ApolloProviderWrapper } from '../graphql/client';

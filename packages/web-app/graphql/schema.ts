@@ -1492,21 +1492,21 @@ export type PublisherSourceSearchByTypeQueryVariables = Exact<{
 
 export type PublisherSourceSearchByTypeQuery = { __typename?: 'Query', publisherSourceSearch?: { __typename?: 'PublisherSourceSearchConnection', edges: Array<{ __typename?: 'PublisherSourceSearchEdge', node: { __typename?: 'PublisherSource', id: string, type: SourceType, creator: string, publisher: { __typename?: 'Publisher', id: string }, topic: { __typename?: 'Topic', id: string }, rss?: { __typename?: 'PublisherSourceRSS', url: string } | null, youtube?: { __typename?: 'PublisherSourceYouTube', username?: string | null, channelID?: string | null } | null } }> } | null };
 
-export type BaseNewsItemFragment = { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, rss?: { __typename?: 'NewsItemDataRSS', url: string, coverUrl?: string | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } } | null };
+export type BaseNewsItemFragment = { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, rss?: { __typename?: 'NewsItemDataRSS', url: string, coverUrl?: string | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string } } | null };
 
 export type GetNewsItemQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetNewsItemQuery = { __typename?: 'Query', newsItem?: { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, rss?: { __typename?: 'NewsItemDataRSS', contentHtml?: string | null, url: string, coverUrl?: string | null } | null, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } } | null } | null };
+export type GetNewsItemQuery = { __typename?: 'Query', newsItem?: { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, rss?: { __typename?: 'NewsItemDataRSS', contentHtml?: string | null, url: string, coverUrl?: string | null } | null, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string } } | null } | null };
 
 export type GetNewsFeedQueryVariables = Exact<{
   userId: Scalars['String']['input'];
 }>;
 
 
-export type GetNewsFeedQuery = { __typename?: 'Query', newsItemSearch?: { __typename?: 'NewsItemSearchConnection', edges: Array<{ __typename?: 'NewsItemSearchEdge', node: { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, rss?: { __typename?: 'NewsItemDataRSS', url: string, coverUrl?: string | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } } | null } }> } | null };
+export type GetNewsFeedQuery = { __typename?: 'Query', newsItemSearch?: { __typename?: 'NewsItemSearchConnection', edges: Array<{ __typename?: 'NewsItemSearchEdge', node: { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, rss?: { __typename?: 'NewsItemDataRSS', url: string, coverUrl?: string | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string } } | null } }> } | null };
 
 export type SearchNewsFeedQueryVariables = Exact<{
   userId: Scalars['String']['input'];
@@ -1521,9 +1521,9 @@ export type GetPublisherNewsFeedQueryVariables = Exact<{
 }>;
 
 
-export type GetPublisherNewsFeedQuery = { __typename?: 'Query', publisher?: { __typename?: 'Publisher', id: string, title: string, news?: { __typename?: 'NewsItemConnection', edges?: Array<{ __typename?: 'NewsItemEdge', node: { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, rss?: { __typename?: 'NewsItemDataRSS', url: string, coverUrl?: string | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } } | null } } | null> | null } | null, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } } | null };
+export type GetPublisherNewsFeedQuery = { __typename?: 'Query', publisher?: { __typename?: 'Publisher', id: string, title: string, news?: { __typename?: 'NewsItemConnection', edges?: Array<{ __typename?: 'NewsItemEdge', node: { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, rss?: { __typename?: 'NewsItemDataRSS', url: string, coverUrl?: string | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string } } | null } } | null> | null } | null, avatar: { __typename?: 'Picture', bucket: string, key: string } } | null };
 
-export type PublisherInfoFragment = { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } };
+export type PublisherInfoFragment = { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string } };
 
 export type CreatePublisherMutationVariables = Exact<{
   input: CustomCreatePublisherInput;
@@ -1537,7 +1537,7 @@ export type ListUserPublishersQueryVariables = Exact<{
 }>;
 
 
-export type ListUserPublishersQuery = { __typename?: 'Query', topicSearch?: { __typename?: 'TopicSearchConnection', edges: Array<{ __typename?: 'TopicSearchEdge', node: { __typename?: 'Topic', id: string, title: string, publishers?: { __typename?: 'PublisherConnection', edges?: Array<{ __typename?: 'PublisherEdge', node: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } } } | null> | null } | null } }> } | null };
+export type ListUserPublishersQuery = { __typename?: 'Query', topicSearch?: { __typename?: 'TopicSearchConnection', edges: Array<{ __typename?: 'TopicSearchEdge', node: { __typename?: 'Topic', id: string, title: string, publishers?: { __typename?: 'PublisherConnection', edges?: Array<{ __typename?: 'PublisherEdge', node: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string } } } | null> | null } | null } }> } | null };
 
 export type BaseTopicFragment = { __typename?: 'Topic', id: string, title: string };
 
@@ -1555,7 +1555,6 @@ export const PublisherInfoFragmentDoc = gql`
   avatar {
     bucket
     key
-    url
   }
 }
     `;

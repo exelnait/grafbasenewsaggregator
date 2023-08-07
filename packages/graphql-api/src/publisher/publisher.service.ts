@@ -4,17 +4,17 @@ import {
   SourceType,
 } from '../../../../graphql/generated/graphql';
 import { Publisher } from './publisher.model';
-const apiUrl = 'http://127.0.0.1:4000/graphql'; //process.env.GRAFBASE_API_URL
 
 @Injectable()
 export class PublisherService {
   async createdPublisher(input: any): Promise<Publisher> {
+    console.log(process.env);
     console.log(input);
-    const data = await fetch(apiUrl, {
+    const data = await fetch(process.env.API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': '',
+        'x-api-key': process.env.GRAFBASE_API_KEY,
       },
 
       body: JSON.stringify({
@@ -62,11 +62,11 @@ export class PublisherService {
   async getAllPublisherSourcesByType(
     type: SourceType
   ): Promise<PublisherSource[]> {
-    const data = await fetch(apiUrl, {
+    const data = await fetch(process.env.API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': '',
+        'x-api-key': process.env.GRAFBASE_API_KEY,
       },
 
       body: JSON.stringify({

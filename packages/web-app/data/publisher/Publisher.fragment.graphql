@@ -4,6 +4,6 @@ fragment PublisherInfo on Publisher {
     avatar {
         bucket
         key
-        url
+#        url
     }
 }

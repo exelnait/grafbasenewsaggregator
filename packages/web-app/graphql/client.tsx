@@ -1,7 +1,5 @@
 import { setContext } from '@apollo/client/link/context';
 
-const API_URL = 'http://localhost:4000/graphql';
-
 import type { PropsWithChildren } from 'react';
 import { useMemo } from 'react';
 import {
@@ -15,7 +13,7 @@ import {
 import { useAuth } from '@clerk/nextjs';
 
 const httpLink = createHttpLink({
-  uri: API_URL,
+  uri: process.env.NEXT_PUBLIC_API_URL,
 });
 
 export const ApolloProviderWrapper = ({ children }: PropsWithChildren) => {
