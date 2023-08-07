@@ -1,0 +1,9 @@
+fragment PublisherInfo on Publisher {
+    id
+    title
+    avatar {
+        bucket
+        key
+        url
+    }
+}

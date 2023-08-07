@@ -1,0 +1,7 @@
+mutation CreateTopic($input: TopicCreateInput!) {
+    topicCreate(input: $input) {
+        topic {
+            ...BaseTopic
+        }
+    }
+}

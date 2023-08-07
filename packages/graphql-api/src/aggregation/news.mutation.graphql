@@ -1,0 +1,8 @@
+mutation CreateNewsItem($input: [NewsItemCreateManyInput!]!) {
+    newsItemCreateMany(input: $input) {
+      newsItemCollection {
+          id
+          type
+      }
+    }
+  }

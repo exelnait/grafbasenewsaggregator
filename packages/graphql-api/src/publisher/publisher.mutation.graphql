@@ -1,0 +1,28 @@
+mutation CreatePublisherMutation(
+    $title: String!
+    $creatorID: String!
+    $topicID: ID!
+    $avatarBucket: String!
+    $avatarKey: String!
+    $sourceRelations: [PublisherToPublisherSourceCreatePublisherSourceRelation!]!
+) {
+    publisherCreate(input: {
+        title: $title
+        topic: {
+            link: $topicID
+        }
+        avatar: {
+            create: {
+                bucket: $avatarBucket
+                key: $avatarKey
+            }
+        }
+        creator: $creatorID
+        sources: $sourceRelations
+    }) {
+        publisher {
+            id
+            title
+        }
+    }
+}

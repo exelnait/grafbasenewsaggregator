@@ -1,0 +1,23 @@
+fragment BaseNewsItem on NewsItem {
+    id
+    title
+    description
+    type
+    publishedAt
+    cover {
+        bucket
+        key
+        url
+    }
+    rss {
+        url
+        coverUrl
+    }
+    youtube {
+        videoId
+        coverUrl
+    }
+    publisher {
+        ...PublisherInfo
+    }
+}

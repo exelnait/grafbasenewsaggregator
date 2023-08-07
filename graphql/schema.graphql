@@ -1,0 +1,1278 @@
+"""Directs the executor to return values as a Streaming response."""
+directive @live on QUERY
+
+"""Indicates that an input object is a oneOf input object"""
+directive @oneOf on INPUT_OBJECT
+
+input BooleanSearchFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input CustomCreatePublisherInput {
+  avatarUrl: String
+  creatorID: String!
+  sources: [CustomCreatePublisherSourceCustomInput!]!
+  title: String!
+  topicID: ID!
+  websiteUrl: String
+}
+
+input CustomCreatePublisherSourceCustomInput {
+  itunes: CustomCreatePublisherSourceRSSInput
+  rss: CustomCreatePublisherSourceRSSInput
+  twitter: CustomCreatePublisherSourceTwitterInput
+  type: String!
+  youtube: CustomCreatePublisherSourceYoutubeInput
+}
+
+input CustomCreatePublisherSourceRSSInput {
+  url: String!
+}
+
+input CustomCreatePublisherSourceTwitterInput {
+  username: String!
+}
+
+input CustomCreatePublisherSourceYoutubeInput {
+  channelID: String
+  url: String
+  username: String
+}
+
+type CustomMutation {
+  aggregateNewsByType(type: String!): [CustomNewsItem!]!
+  createPublisher(input: CustomCreatePublisherInput!): CustomPublisher!
+}
+
+type CustomNewsItem {
+  id: String!
+}
+
+type CustomPublisher {
+  id: String!
+}
+
+type CustomQuery {
+  sayHello: String!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, is compliant with the date-time format outlined in section 5.6 of the RFC 3339
+profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+
+This scalar is a description of an exact instant on the timeline such as the instant that a user account was created.
+
+# Input Coercion
+
+When expected as an input type, only RFC 3339 compliant date-time strings are accepted. All other input values raise a query error indicating an incorrect type.
+
+# Result Coercion
+
+Where an RFC 3339 compliant date-time string has a time-zone other than UTC, it is shifted to UTC.
+For example, the date-time string 2016-01-01T14:10:20+01:00 is shifted to 2016-01-01T13:10:20Z.
+"""
+scalar DateTime
+
+input DateTimeSearchFilterInput {
+  ALL: [DateTimeSearchFilterInput!]
+  ANY: [DateTimeSearchFilterInput!]
+  NONE: [DateTimeSearchFilterInput!]
+  NOT: DateTimeSearchFilterInput
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notIn: [DateTime!]
+}
+
+input IDCollectionFilterInput {
+  in: [ID!]
+}
+
+type Mutation {
+  """Access to embedded custom API."""
+  custom: CustomMutation!
+
+  """Create a NewsItem"""
+  newsItemCreate(input: NewsItemCreateInput!): NewsItemCreatePayload
+
+  """Create multiple NewsItem"""
+  newsItemCreateMany(input: [NewsItemCreateManyInput!]!): NewsItemCreateManyPayload
+
+  """Delete a NewsItem by ID or unique field"""
+  newsItemDelete(by: NewsItemByInput!): NewsItemDeletePayload
+
+  """Delete multiple NewsItem"""
+  newsItemDeleteMany(input: [NewsItemDeleteManyInput!]!): NewsItemDeleteManyPayload
+
+  """Update a NewsItem"""
+  newsItemUpdate(by: NewsItemByInput!, input: NewsItemUpdateInput!): NewsItemUpdatePayload
+
+  """Update multiple NewsItem"""
+  newsItemUpdateMany(input: [NewsItemUpdateManyInput!]!): NewsItemUpdateManyPayload
+
+  """Create a Picture"""
+  pictureCreate(input: PictureCreateInput!): PictureCreatePayload
+
+  """Create multiple Picture"""
+  pictureCreateMany(input: [PictureCreateManyInput!]!): PictureCreateManyPayload
+
+  """Delete a Picture by ID or unique field"""
+  pictureDelete(by: PictureByInput!): PictureDeletePayload
+
+  """Delete multiple Picture"""
+  pictureDeleteMany(input: [PictureDeleteManyInput!]!): PictureDeleteManyPayload
+
+  """Update a Picture"""
+  pictureUpdate(by: PictureByInput!, input: PictureUpdateInput!): PictureUpdatePayload
+
+  """Update multiple Picture"""
+  pictureUpdateMany(input: [PictureUpdateManyInput!]!): PictureUpdateManyPayload
+
+  """Create a Publisher"""
+  publisherCreate(input: PublisherCreateInput!): PublisherCreatePayload
+
+  """Create multiple Publisher"""
+  publisherCreateMany(input: [PublisherCreateManyInput!]!): PublisherCreateManyPayload
+
+  """Delete a Publisher by ID or unique field"""
+  publisherDelete(by: PublisherByInput!): PublisherDeletePayload
+
+  """Delete multiple Publisher"""
+  publisherDeleteMany(input: [PublisherDeleteManyInput!]!): PublisherDeleteManyPayload
+
+  """Create a PublisherSource"""
+  publisherSourceCreate(input: PublisherSourceCreateInput!): PublisherSourceCreatePayload
+
+  """Create multiple PublisherSource"""
+  publisherSourceCreateMany(input: [PublisherSourceCreateManyInput!]!): PublisherSourceCreateManyPayload
+
+  """Delete a PublisherSource by ID or unique field"""
+  publisherSourceDelete(by: PublisherSourceByInput!): PublisherSourceDeletePayload
+
+  """Delete multiple PublisherSource"""
+  publisherSourceDeleteMany(input: [PublisherSourceDeleteManyInput!]!): PublisherSourceDeleteManyPayload
+
+  """Update a PublisherSource"""
+  publisherSourceUpdate(by: PublisherSourceByInput!, input: PublisherSourceUpdateInput!): PublisherSourceUpdatePayload
+
+  """Update multiple PublisherSource"""
+  publisherSourceUpdateMany(input: [PublisherSourceUpdateManyInput!]!): PublisherSourceUpdateManyPayload
+
+  """Update a Publisher"""
+  publisherUpdate(by: PublisherByInput!, input: PublisherUpdateInput!): PublisherUpdatePayload
+
+  """Update multiple Publisher"""
+  publisherUpdateMany(input: [PublisherUpdateManyInput!]!): PublisherUpdateManyPayload
+
+  """Create a Topic"""
+  topicCreate(input: TopicCreateInput!): TopicCreatePayload
+
+  """Create multiple Topic"""
+  topicCreateMany(input: [TopicCreateManyInput!]!): TopicCreateManyPayload
+
+  """Delete a Topic by ID or unique field"""
+  topicDelete(by: TopicByInput!): TopicDeletePayload
+
+  """Delete multiple Topic"""
+  topicDeleteMany(input: [TopicDeleteManyInput!]!): TopicDeleteManyPayload
+
+  """Update a Topic"""
+  topicUpdate(by: TopicByInput!, input: TopicUpdateInput!): TopicUpdatePayload
+
+  """Update multiple Topic"""
+  topicUpdateMany(input: [TopicUpdateManyInput!]!): TopicUpdateManyPayload
+}
+
+type NewsItem {
+  cover: Picture
+
+  """when the model was created"""
+  createdAt: DateTime!
+  creator: String!
+  description: String
+
+  """Unique identifier"""
+  id: ID!
+  publishedAt: String!
+  publisher: Publisher
+  rss: NewsItemDataRSS
+  title: String!
+  topic: Topic
+  type: SourceType!
+
+  """when the model was updated"""
+  updatedAt: DateTime!
+  youtube: NewsItemDataYouTube
+}
+
+input NewsItemByInput {
+  creator: String
+  id: ID
+}
+
+input NewsItemCollectionFilterInput {
+  id: IDCollectionFilterInput
+}
+
+type NewsItemConnection {
+  edges: [NewsItemEdge]
+
+  """Information to aid in pagination"""
+  pageInfo: PageInfo!
+}
+
+"""Input to create a NewsItem"""
+input NewsItemCreateInput {
+  cover: NewsItemToPictureCreatePictureRelation
+  creator: String!
+  description: String
+  publishedAt: String!
+  publisher: NewsItemToPublisherCreatePublisherRelation
+  rss: NewsItemDataRSSInput
+  title: String!
+  topic: NewsItemToTopicCreateTopicRelation
+  type: SourceType!
+  youtube: NewsItemDataYouTubeInput
+}
+
+input NewsItemCreateManyInput {
+  input: NewsItemCreateInput!
+}
+
+type NewsItemCreateManyPayload {
+  newsItemCollection: [NewsItem!]!
+}
+
+type NewsItemCreatePayload {
+  newsItem: NewsItem
+}
+
+type NewsItemDataRSS {
+  author: String
+  categories: [String!]
+  contentHtml: String
+  contentJson: String
+  coverUrl: String
+  url: String!
+}
+
+"""NewsItemDataRSS input type."""
+input NewsItemDataRSSInput {
+  author: String
+  categories: [String!]
+  contentHtml: String
+  contentJson: String
+  coverUrl: String
+  url: String!
+}
+
+type NewsItemDataYouTube {
+  coverUrl: String
+  videoId: String!
+}
+
+"""NewsItemDataYouTube input type."""
+input NewsItemDataYouTubeInput {
+  coverUrl: String
+  videoId: String!
+}
+
+input NewsItemDeleteManyInput {
+  by: NewsItemByInput!
+}
+
+type NewsItemDeleteManyPayload {
+  deletedIds: [ID!]!
+}
+
+type NewsItemDeletePayload {
+  deletedId: ID!
+}
+
+type NewsItemEdge {
+  cursor: String!
+  node: NewsItem!
+}
+
+input NewsItemOrderByInput {
+  createdAt: OrderByDirection
+}
+
+type NewsItemSearchConnection {
+  edges: [NewsItemSearchEdge!]!
+  pageInfo: PageInfo!
+  searchInfo: SearchInfo
+}
+
+type NewsItemSearchEdge {
+  cursor: String!
+  node: NewsItem!
+  score: Float!
+}
+
+input NewsItemSearchFilterInput {
+  ALL: [NewsItemSearchFilterInput!]
+  ANY: [NewsItemSearchFilterInput!]
+  NONE: [NewsItemSearchFilterInput!]
+  NOT: NewsItemSearchFilterInput
+  createdAt: DateTimeSearchFilterInput
+  creator: StringSearchFilterInput
+  description: StringOrNullSearchFilterInput
+  publishedAt: StringSearchFilterInput
+  title: StringSearchFilterInput
+  type: SourceTypeSearchFilterInput
+  updatedAt: DateTimeSearchFilterInput
+}
+
+"""
+Input to create a Picture for the NewsItemToPicture relation of NewsItem
+"""
+input NewsItemToPictureCreatePicture {
+  bucket: String!
+  key: String!
+}
+
+"""
+Input to link to or create a Picture for the NewsItemToPicture relation of NewsItem
+"""
+input NewsItemToPictureCreatePictureRelation {
+  create: NewsItemToPictureCreatePicture
+  link: ID
+}
+
+"""
+Input to link/unlink to or create a Picture for the NewsItemToPicture relation of NewsItem
+"""
+input NewsItemToPictureUpdatePictureRelation {
+  create: NewsItemToPictureCreatePicture
+  link: ID
+  unlink: ID
+}
+
+"""
+Input to create a NewsItem for the NewsItemToPublisher relation of Publisher
+"""
+input NewsItemToPublisherCreateNewsItem {
+  cover: NewsItemToPictureCreatePictureRelation
+  creator: String!
+  description: String
+  publishedAt: String!
+  rss: NewsItemDataRSSInput
+  title: String!
+  topic: NewsItemToTopicCreateTopicRelation
+  type: SourceType!
+  youtube: NewsItemDataYouTubeInput
+}
+
+"""
+Input to link to or create a NewsItem for the NewsItemToPublisher relation of Publisher
+"""
+input NewsItemToPublisherCreateNewsItemRelation {
+  create: NewsItemToPublisherCreateNewsItem
+  link: ID
+}
+
+"""
+Input to create a Publisher for the NewsItemToPublisher relation of NewsItem
+"""
+input NewsItemToPublisherCreatePublisher {
+  avatar: PictureToPublisherCreatePictureRelation!
+  creator: String!
+  news: [NewsItemToPublisherCreateNewsItemRelation!]
+  sources: [PublisherToPublisherSourceCreatePublisherSourceRelation!]!
+  title: String!
+  topic: PublisherToTopicCreateTopicRelation!
+}
+
+"""
+Input to link to or create a Publisher for the NewsItemToPublisher relation of NewsItem
+"""
+input NewsItemToPublisherCreatePublisherRelation {
+  create: NewsItemToPublisherCreatePublisher
+  link: ID
+}
+
+"""
+Input to link/unlink to or create a NewsItem for the NewsItemToPublisher relation of Publisher
+"""
+input NewsItemToPublisherUpdateNewsItemRelation {
+  create: NewsItemToPublisherCreateNewsItem
+  link: ID
+  unlink: ID
+}
+
+"""
+Input to link/unlink to or create a Publisher for the NewsItemToPublisher relation of NewsItem
+"""
+input NewsItemToPublisherUpdatePublisherRelation {
+  create: NewsItemToPublisherCreatePublisher
+  link: ID
+  unlink: ID
+}
+
+"""Input to create a NewsItem for the NewsItemToTopic relation of Topic"""
+input NewsItemToTopicCreateNewsItem {
+  cover: NewsItemToPictureCreatePictureRelation
+  creator: String!
+  description: String
+  publishedAt: String!
+  publisher: NewsItemToPublisherCreatePublisherRelation
+  rss: NewsItemDataRSSInput
+  title: String!
+  type: SourceType!
+  youtube: NewsItemDataYouTubeInput
+}
+
+"""
+Input to link to or create a NewsItem for the NewsItemToTopic relation of Topic
+"""
+input NewsItemToTopicCreateNewsItemRelation {
+  create: NewsItemToTopicCreateNewsItem
+  link: ID
+}
+
+"""Input to create a Topic for the NewsItemToTopic relation of NewsItem"""
+input NewsItemToTopicCreateTopic {
+  creator: String!
+  news: [NewsItemToTopicCreateNewsItemRelation!]
+  publishers: [PublisherToTopicCreatePublisherRelation!]
+  title: String!
+}
+
+"""
+Input to link to or create a Topic for the NewsItemToTopic relation of NewsItem
+"""
+input NewsItemToTopicCreateTopicRelation {
+  create: NewsItemToTopicCreateTopic
+  link: ID
+}
+
+"""
+Input to link/unlink to or create a NewsItem for the NewsItemToTopic relation of Topic
+"""
+input NewsItemToTopicUpdateNewsItemRelation {
+  create: NewsItemToTopicCreateNewsItem
+  link: ID
+  unlink: ID
+}
+
+"""
+Input to link/unlink to or create a Topic for the NewsItemToTopic relation of NewsItem
+"""
+input NewsItemToTopicUpdateTopicRelation {
+  create: NewsItemToTopicCreateTopic
+  link: ID
+  unlink: ID
+}
+
+"""Input to update a NewsItem"""
+input NewsItemUpdateInput {
+  cover: NewsItemToPictureUpdatePictureRelation
+  creator: String
+  description: String
+  publishedAt: String
+  publisher: NewsItemToPublisherUpdatePublisherRelation
+  rss: NewsItemDataRSSInput
+  title: String
+  topic: NewsItemToTopicUpdateTopicRelation
+  type: SourceType
+  youtube: NewsItemDataYouTubeInput
+}
+
+input NewsItemUpdateManyInput {
+  by: NewsItemByInput!
+  input: NewsItemUpdateInput!
+}
+
+type NewsItemUpdateManyPayload {
+  newsItemCollection: [NewsItem!]!
+}
+
+type NewsItemUpdatePayload {
+  newsItem: NewsItem
+}
+
+enum OrderByDirection {
+  ASC
+  DESC
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Picture {
+  bucket: String!
+
+  """when the model was created"""
+  createdAt: DateTime!
+
+  """Unique identifier"""
+  id: ID!
+  key: String!
+
+  """when the model was updated"""
+  updatedAt: DateTime!
+  url: URL
+}
+
+input PictureByInput {
+  id: ID
+}
+
+input PictureCollectionFilterInput {
+  id: IDCollectionFilterInput
+}
+
+type PictureConnection {
+  edges: [PictureEdge]
+
+  """Information to aid in pagination"""
+  pageInfo: PageInfo!
+}
+
+"""Input to create a Picture"""
+input PictureCreateInput {
+  bucket: String!
+  key: String!
+}
+
+input PictureCreateManyInput {
+  input: PictureCreateInput!
+}
+
+type PictureCreateManyPayload {
+  pictureCollection: [Picture!]!
+}
+
+type PictureCreatePayload {
+  picture: Picture
+}
+
+input PictureDeleteManyInput {
+  by: PictureByInput!
+}
+
+type PictureDeleteManyPayload {
+  deletedIds: [ID!]!
+}
+
+type PictureDeletePayload {
+  deletedId: ID!
+}
+
+type PictureEdge {
+  cursor: String!
+  node: Picture!
+}
+
+input PictureOrderByInput {
+  createdAt: OrderByDirection
+}
+
+"""
+Input to create a Picture for the PictureToPublisher relation of Publisher
+"""
+input PictureToPublisherCreatePicture {
+  bucket: String!
+  key: String!
+}
+
+"""
+Input to link to or create a Picture for the PictureToPublisher relation of Publisher
+"""
+input PictureToPublisherCreatePictureRelation {
+  create: PictureToPublisherCreatePicture
+  link: ID
+}
+
+"""
+Input to link/unlink to or create a Picture for the PictureToPublisher relation of Publisher
+"""
+input PictureToPublisherUpdatePictureRelation {
+  create: PictureToPublisherCreatePicture
+  link: ID
+  unlink: ID
+}
+
+"""Input to update a Picture"""
+input PictureUpdateInput {
+  bucket: String
+  key: String
+}
+
+input PictureUpdateManyInput {
+  by: PictureByInput!
+  input: PictureUpdateInput!
+}
+
+type PictureUpdateManyPayload {
+  pictureCollection: [Picture!]!
+}
+
+type PictureUpdatePayload {
+  picture: Picture
+}
+
+type Publisher {
+  avatar: Picture!
+
+  """when the model was created"""
+  createdAt: DateTime!
+  creator: String!
+
+  """Unique identifier"""
+  id: ID!
+  news(after: String, before: String, first: Int, last: Int, orderBy: PublisherOrderByInput): NewsItemConnection
+  sources(after: String, before: String, first: Int, last: Int, orderBy: PublisherOrderByInput): PublisherSourceConnection
+  title: String!
+  topic: Topic!
+
+  """when the model was updated"""
+  updatedAt: DateTime!
+}
+
+input PublisherByInput {
+  creator: String
+  id: ID
+}
+
+input PublisherCollectionFilterInput {
+  id: IDCollectionFilterInput
+}
+
+type PublisherConnection {
+  edges: [PublisherEdge]
+
+  """Information to aid in pagination"""
+  pageInfo: PageInfo!
+}
+
+"""Input to create a Publisher"""
+input PublisherCreateInput {
+  avatar: PictureToPublisherCreatePictureRelation!
+  creator: String!
+  news: [NewsItemToPublisherCreateNewsItemRelation!]
+  sources: [PublisherToPublisherSourceCreatePublisherSourceRelation!]!
+  title: String!
+  topic: PublisherToTopicCreateTopicRelation!
+}
+
+input PublisherCreateManyInput {
+  input: PublisherCreateInput!
+}
+
+type PublisherCreateManyPayload {
+  publisherCollection: [Publisher!]!
+}
+
+type PublisherCreatePayload {
+  publisher: Publisher
+}
+
+input PublisherDeleteManyInput {
+  by: PublisherByInput!
+}
+
+type PublisherDeleteManyPayload {
+  deletedIds: [ID!]!
+}
+
+type PublisherDeletePayload {
+  deletedId: ID!
+}
+
+type PublisherEdge {
+  cursor: String!
+  node: Publisher!
+}
+
+input PublisherOrderByInput {
+  createdAt: OrderByDirection
+}
+
+type PublisherSource {
+  """when the model was created"""
+  createdAt: DateTime!
+  creator: String!
+
+  """Unique identifier"""
+  id: ID!
+  isHidden: Boolean!
+  publisher: Publisher!
+  rss: PublisherSourceRSS
+  title: String!
+  topic: Topic!
+  type: SourceType!
+
+  """when the model was updated"""
+  updatedAt: DateTime!
+  youtube: PublisherSourceYouTube
+}
+
+input PublisherSourceByInput {
+  creator: String
+  id: ID
+}
+
+input PublisherSourceCollectionFilterInput {
+  id: IDCollectionFilterInput
+}
+
+type PublisherSourceConnection {
+  edges: [PublisherSourceEdge]
+
+  """Information to aid in pagination"""
+  pageInfo: PageInfo!
+}
+
+"""Input to create a PublisherSource"""
+input PublisherSourceCreateInput {
+  creator: String!
+  isHidden: Boolean! = false
+  publisher: PublisherToPublisherSourceCreatePublisherRelation!
+  rss: PublisherSourceRSSInput
+  title: String!
+  topic: PublisherSourceToTopicCreateTopicRelation!
+  type: SourceType!
+  youtube: PublisherSourceYouTubeInput
+}
+
+input PublisherSourceCreateManyInput {
+  input: PublisherSourceCreateInput!
+}
+
+type PublisherSourceCreateManyPayload {
+  publisherSourceCollection: [PublisherSource!]!
+}
+
+type PublisherSourceCreatePayload {
+  publisherSource: PublisherSource
+}
+
+input PublisherSourceDeleteManyInput {
+  by: PublisherSourceByInput!
+}
+
+type PublisherSourceDeleteManyPayload {
+  deletedIds: [ID!]!
+}
+
+type PublisherSourceDeletePayload {
+  deletedId: ID!
+}
+
+type PublisherSourceEdge {
+  cursor: String!
+  node: PublisherSource!
+}
+
+input PublisherSourceOrderByInput {
+  createdAt: OrderByDirection
+}
+
+type PublisherSourceRSS {
+  url: String!
+}
+
+"""PublisherSourceRSS input type."""
+input PublisherSourceRSSInput {
+  url: String!
+}
+
+type PublisherSourceSearchConnection {
+  edges: [PublisherSourceSearchEdge!]!
+  pageInfo: PageInfo!
+  searchInfo: SearchInfo
+}
+
+type PublisherSourceSearchEdge {
+  cursor: String!
+  node: PublisherSource!
+  score: Float!
+}
+
+input PublisherSourceSearchFilterInput {
+  ALL: [PublisherSourceSearchFilterInput!]
+  ANY: [PublisherSourceSearchFilterInput!]
+  NONE: [PublisherSourceSearchFilterInput!]
+  NOT: PublisherSourceSearchFilterInput
+  createdAt: DateTimeSearchFilterInput
+  creator: StringSearchFilterInput
+  isHidden: BooleanSearchFilterInput
+  title: StringSearchFilterInput
+  type: SourceTypeSearchFilterInput
+  updatedAt: DateTimeSearchFilterInput
+}
+
+"""
+Input to create a Topic for the PublisherSourceToTopic relation of PublisherSource
+"""
+input PublisherSourceToTopicCreateTopic {
+  creator: String!
+  news: [NewsItemToTopicCreateNewsItemRelation!]
+  publishers: [PublisherToTopicCreatePublisherRelation!]
+  title: String!
+}
+
+"""
+Input to link to or create a Topic for the PublisherSourceToTopic relation of PublisherSource
+"""
+input PublisherSourceToTopicCreateTopicRelation {
+  create: PublisherSourceToTopicCreateTopic
+  link: ID
+}
+
+"""
+Input to link/unlink to or create a Topic for the PublisherSourceToTopic relation of PublisherSource
+"""
+input PublisherSourceToTopicUpdateTopicRelation {
+  create: PublisherSourceToTopicCreateTopic
+  link: ID
+  unlink: ID
+}
+
+"""Input to update a PublisherSource"""
+input PublisherSourceUpdateInput {
+  creator: String
+  isHidden: Boolean
+  publisher: PublisherToPublisherSourceUpdatePublisherRelation
+  rss: PublisherSourceRSSInput
+  title: String
+  topic: PublisherSourceToTopicUpdateTopicRelation
+  type: SourceType
+  youtube: PublisherSourceYouTubeInput
+}
+
+input PublisherSourceUpdateManyInput {
+  by: PublisherSourceByInput!
+  input: PublisherSourceUpdateInput!
+}
+
+type PublisherSourceUpdateManyPayload {
+  publisherSourceCollection: [PublisherSource!]!
+}
+
+type PublisherSourceUpdatePayload {
+  publisherSource: PublisherSource
+}
+
+type PublisherSourceYouTube {
+  channelID: String
+  username: String
+}
+
+"""PublisherSourceYouTube input type."""
+input PublisherSourceYouTubeInput {
+  channelID: String
+  username: String
+}
+
+"""
+Input to create a Publisher for the PublisherToPublisherSource relation of PublisherSource
+"""
+input PublisherToPublisherSourceCreatePublisher {
+  avatar: PictureToPublisherCreatePictureRelation!
+  creator: String!
+  news: [NewsItemToPublisherCreateNewsItemRelation!]
+  sources: [PublisherToPublisherSourceCreatePublisherSourceRelation!]!
+  title: String!
+  topic: PublisherToTopicCreateTopicRelation!
+}
+
+"""
+Input to link to or create a Publisher for the PublisherToPublisherSource relation of PublisherSource
+"""
+input PublisherToPublisherSourceCreatePublisherRelation {
+  create: PublisherToPublisherSourceCreatePublisher
+  link: ID
+}
+
+"""
+Input to create a PublisherSource for the PublisherToPublisherSource relation of Publisher
+"""
+input PublisherToPublisherSourceCreatePublisherSource {
+  creator: String!
+  isHidden: Boolean! = false
+  rss: PublisherSourceRSSInput
+  title: String!
+  topic: PublisherSourceToTopicCreateTopicRelation!
+  type: SourceType!
+  youtube: PublisherSourceYouTubeInput
+}
+
+"""
+Input to link to or create a PublisherSource for the PublisherToPublisherSource relation of Publisher
+"""
+input PublisherToPublisherSourceCreatePublisherSourceRelation {
+  create: PublisherToPublisherSourceCreatePublisherSource
+  link: ID
+}
+
+"""
+Input to link/unlink to or create a Publisher for the PublisherToPublisherSource relation of PublisherSource
+"""
+input PublisherToPublisherSourceUpdatePublisherRelation {
+  create: PublisherToPublisherSourceCreatePublisher
+  link: ID
+  unlink: ID
+}
+
+"""
+Input to link/unlink to or create a PublisherSource for the PublisherToPublisherSource relation of Publisher
+"""
+input PublisherToPublisherSourceUpdatePublisherSourceRelation {
+  create: PublisherToPublisherSourceCreatePublisherSource
+  link: ID
+  unlink: ID
+}
+
+"""Input to create a Publisher for the PublisherToTopic relation of Topic"""
+input PublisherToTopicCreatePublisher {
+  avatar: PictureToPublisherCreatePictureRelation!
+  creator: String!
+  news: [NewsItemToPublisherCreateNewsItemRelation!]
+  sources: [PublisherToPublisherSourceCreatePublisherSourceRelation!]!
+  title: String!
+}
+
+"""
+Input to link to or create a Publisher for the PublisherToTopic relation of Topic
+"""
+input PublisherToTopicCreatePublisherRelation {
+  create: PublisherToTopicCreatePublisher
+  link: ID
+}
+
+"""Input to create a Topic for the PublisherToTopic relation of Publisher"""
+input PublisherToTopicCreateTopic {
+  creator: String!
+  news: [NewsItemToTopicCreateNewsItemRelation!]
+  publishers: [PublisherToTopicCreatePublisherRelation!]
+  title: String!
+}
+
+"""
+Input to link to or create a Topic for the PublisherToTopic relation of Publisher
+"""
+input PublisherToTopicCreateTopicRelation {
+  create: PublisherToTopicCreateTopic
+  link: ID
+}
+
+"""
+Input to link/unlink to or create a Publisher for the PublisherToTopic relation of Topic
+"""
+input PublisherToTopicUpdatePublisherRelation {
+  create: PublisherToTopicCreatePublisher
+  link: ID
+  unlink: ID
+}
+
+"""
+Input to link/unlink to or create a Topic for the PublisherToTopic relation of Publisher
+"""
+input PublisherToTopicUpdateTopicRelation {
+  create: PublisherToTopicCreateTopic
+  link: ID
+  unlink: ID
+}
+
+"""Input to update a Publisher"""
+input PublisherUpdateInput {
+  avatar: PictureToPublisherUpdatePictureRelation
+  creator: String
+  news: [NewsItemToPublisherUpdateNewsItemRelation!]
+  sources: [PublisherToPublisherSourceUpdatePublisherSourceRelation!]
+  title: String
+  topic: PublisherToTopicUpdateTopicRelation
+}
+
+input PublisherUpdateManyInput {
+  by: PublisherByInput!
+  input: PublisherUpdateInput!
+}
+
+type PublisherUpdateManyPayload {
+  publisherCollection: [Publisher!]!
+}
+
+type PublisherUpdatePayload {
+  publisher: Publisher
+}
+
+type Query {
+  """Access to embedded custom API."""
+  custom: CustomQuery!
+
+  """Query a single NewsItem by an ID or a unique field"""
+  newsItem(
+    """The field and value by which to query the NewsItem"""
+    by: NewsItemByInput!
+  ): NewsItem
+
+  """Paginated query to fetch the whole list of `NewsItem`."""
+  newsItemCollection(after: String, before: String, filter: NewsItemCollectionFilterInput, first: Int, last: Int, orderBy: NewsItemOrderByInput): NewsItemConnection
+
+  """Search `NewsItem`"""
+  newsItemSearch(
+    after: String
+    before: String
+
+    """
+    Fields used for searching. Restricted to String, URL, Email and PhoneNumber fields. If not specified it defaults to all @search fields with those types.
+    """
+    fields: [String!]
+    filter: NewsItemSearchFilterInput
+    first: Int
+    last: Int
+
+    """Text to search."""
+    query: String
+  ): NewsItemSearchConnection
+
+  """Query a single Picture by an ID or a unique field"""
+  picture(
+    """The field and value by which to query the Picture"""
+    by: PictureByInput!
+  ): Picture
+
+  """Paginated query to fetch the whole list of `Picture`."""
+  pictureCollection(after: String, before: String, filter: PictureCollectionFilterInput, first: Int, last: Int, orderBy: PictureOrderByInput): PictureConnection
+
+  """Query a single Publisher by an ID or a unique field"""
+  publisher(
+    """The field and value by which to query the Publisher"""
+    by: PublisherByInput!
+  ): Publisher
+
+  """Paginated query to fetch the whole list of `Publisher`."""
+  publisherCollection(after: String, before: String, filter: PublisherCollectionFilterInput, first: Int, last: Int, orderBy: PublisherOrderByInput): PublisherConnection
+
+  """Query a single PublisherSource by an ID or a unique field"""
+  publisherSource(
+    """The field and value by which to query the PublisherSource"""
+    by: PublisherSourceByInput!
+  ): PublisherSource
+
+  """Paginated query to fetch the whole list of `PublisherSource`."""
+  publisherSourceCollection(after: String, before: String, filter: PublisherSourceCollectionFilterInput, first: Int, last: Int, orderBy: PublisherSourceOrderByInput): PublisherSourceConnection
+
+  """Search `PublisherSource`"""
+  publisherSourceSearch(
+    after: String
+    before: String
+
+    """
+    Fields used for searching. Restricted to String, URL, Email and PhoneNumber fields. If not specified it defaults to all @search fields with those types.
+    """
+    fields: [String!]
+    filter: PublisherSourceSearchFilterInput
+    first: Int
+    last: Int
+
+    """Text to search."""
+    query: String
+  ): PublisherSourceSearchConnection
+
+  """Query a single Topic by an ID or a unique field"""
+  topic(
+    """The field and value by which to query the Topic"""
+    by: TopicByInput!
+  ): Topic
+
+  """Paginated query to fetch the whole list of `Topic`."""
+  topicCollection(after: String, before: String, filter: TopicCollectionFilterInput, first: Int, last: Int, orderBy: TopicOrderByInput): TopicConnection
+
+  """Search `Topic`"""
+  topicSearch(
+    after: String
+    before: String
+
+    """
+    Fields used for searching. Restricted to String, URL, Email and PhoneNumber fields. If not specified it defaults to all @search fields with those types.
+    """
+    fields: [String!]
+    filter: TopicSearchFilterInput
+    first: Int
+    last: Int
+
+    """Text to search."""
+    query: String
+  ): TopicSearchConnection
+}
+
+type SearchInfo {
+  totalHits: Int!
+}
+
+enum SourceType {
+  rss
+  youtube
+}
+
+input SourceTypeSearchFilterInput {
+  eq: SourceType
+  in: [SourceType!]
+  neq: SourceType
+  notIn: [SourceType!]
+}
+
+input StringOrNullSearchFilterInput {
+  ALL: [StringOrNullSearchFilterInput!]
+  ANY: [StringOrNullSearchFilterInput!]
+  NONE: [StringOrNullSearchFilterInput!]
+  NOT: StringOrNullSearchFilterInput
+  eq: String
+  gt: String
+  gte: String
+  in: [String!]
+  isNull: Boolean
+  lt: String
+  lte: String
+  neq: String
+  notIn: [String!]
+  regex: String
+}
+
+input StringSearchFilterInput {
+  ALL: [StringSearchFilterInput!]
+  ANY: [StringSearchFilterInput!]
+  NONE: [StringSearchFilterInput!]
+  NOT: StringSearchFilterInput
+  eq: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  neq: String
+  notIn: [String!]
+  regex: String
+}
+
+type Topic {
+  """when the model was created"""
+  createdAt: DateTime!
+  creator: String!
+
+  """Unique identifier"""
+  id: ID!
+  news(after: String, before: String, first: Int, last: Int, orderBy: TopicOrderByInput): NewsItemConnection
+  publishers(after: String, before: String, first: Int, last: Int, orderBy: TopicOrderByInput): PublisherConnection
+  title: String!
+
+  """when the model was updated"""
+  updatedAt: DateTime!
+}
+
+input TopicByInput {
+  creator: String
+  id: ID
+}
+
+input TopicCollectionFilterInput {
+  id: IDCollectionFilterInput
+}
+
+type TopicConnection {
+  edges: [TopicEdge]
+
+  """Information to aid in pagination"""
+  pageInfo: PageInfo!
+}
+
+"""Input to create a Topic"""
+input TopicCreateInput {
+  creator: String!
+  news: [NewsItemToTopicCreateNewsItemRelation!]
+  publishers: [PublisherToTopicCreatePublisherRelation!]
+  title: String!
+}
+
+input TopicCreateManyInput {
+  input: TopicCreateInput!
+}
+
+type TopicCreateManyPayload {
+  topicCollection: [Topic!]!
+}
+
+type TopicCreatePayload {
+  topic: Topic
+}
+
+input TopicDeleteManyInput {
+  by: TopicByInput!
+}
+
+type TopicDeleteManyPayload {
+  deletedIds: [ID!]!
+}
+
+type TopicDeletePayload {
+  deletedId: ID!
+}
+
+type TopicEdge {
+  cursor: String!
+  node: Topic!
+}
+
+input TopicOrderByInput {
+  createdAt: OrderByDirection
+}
+
+type TopicSearchConnection {
+  edges: [TopicSearchEdge!]!
+  pageInfo: PageInfo!
+  searchInfo: SearchInfo
+}
+
+type TopicSearchEdge {
+  cursor: String!
+  node: Topic!
+  score: Float!
+}
+
+input TopicSearchFilterInput {
+  ALL: [TopicSearchFilterInput!]
+  ANY: [TopicSearchFilterInput!]
+  NONE: [TopicSearchFilterInput!]
+  NOT: TopicSearchFilterInput
+  creator: StringSearchFilterInput
+}
+
+"""Input to update a Topic"""
+input TopicUpdateInput {
+  creator: String
+  news: [NewsItemToTopicUpdateNewsItemRelation!]
+  publishers: [PublisherToTopicUpdatePublisherRelation!]
+  title: String
+}
+
+input TopicUpdateManyInput {
+  by: TopicByInput!
+  input: TopicUpdateInput!
+}
+
+type TopicUpdateManyPayload {
+  topicCollection: [Topic!]!
+}
+
+type TopicUpdatePayload {
+  topic: Topic
+}
+
+"""
+An URL as defined by RFC1738. For example, `https://grafbase.com/foo/` or `mailto:example@grafbase.com`.
+"""
+scalar URL

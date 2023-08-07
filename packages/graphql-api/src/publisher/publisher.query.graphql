@@ -1,0 +1,28 @@
+query PublisherSourceSearchByType($type: SourceType!) {
+    publisherSourceSearch(filter: {
+        type: {
+            eq: $type
+        }
+    }, first: 100) {
+        edges {
+            node {
+                id
+                type
+                creator
+                publisher {
+                    id
+                }
+                topic {
+                    id
+                }
+                rss {
+                    url
+                }
+                youtube {
+                    username
+                    channelID
+                }
+            }
+        }
+    }
+}

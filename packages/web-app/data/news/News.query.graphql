@@ -1,0 +1,40 @@
+query GetNewsItem($id: ID!) {
+    newsItem(by: { id: $id }) {
+        ...BaseNewsItem
+        rss {
+            contentHtml
+        }
+    }
+}
+
+query GetNewsFeed($userId: String!) {
+    newsItemSearch(filter: {creator: {eq: $userId}, }first: 100) {
+        edges {
+            node {
+                ...BaseNewsItem
+            }
+        }
+    }
+}
+query SearchNewsFeed($userId: String!, $query: String!) {
+    newsItemSearch(filter: {creator: {eq: $userId}, title: { regex: $query }}, first: 100) {
+        edges {
+            node {
+                id
+            }
+        }
+    }
+}
+
+query GetPublisherNewsFeed($id: ID!) {
+    publisher(by: {id: $id}) {
+        ...PublisherInfo
+        news(first: 100) {
+            edges {
+                node {
+                    ...BaseNewsItem
+                }
+            }
+        }
+    }
+}

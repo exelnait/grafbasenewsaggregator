@@ -1,0 +1,16 @@
+query ListUserPublishers($creatorID: String!) {
+    topicSearch(first: 10, query: $creatorID) {
+        edges {
+            node {
+                ...BaseTopic
+                publishers(first: 10) {
+                    edges {
+                        node {
+                            ...PublisherInfo
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

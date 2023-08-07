@@ -1,0 +1,51 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Publisher {
+  id: String!
+}
+
+type NewsItem {
+  id: String!
+}
+
+type Query {
+  sayHello: String!
+}
+
+type Mutation {
+  createPublisher(input: CreatePublisherInput!): Publisher!
+  aggregateNewsByType(type: String!): [NewsItem!]!
+}
+
+input CreatePublisherInput {
+  title: String!
+  avatarUrl: String
+  topicID: ID!
+  creatorID: String!
+  websiteUrl: String
+  sources: [CreatePublisherSourceCustomInput!]!
+}
+
+input CreatePublisherSourceCustomInput {
+  type: String!
+  rss: CreatePublisherSourceRSSInput
+  youtube: CreatePublisherSourceYoutubeInput
+  twitter: CreatePublisherSourceTwitterInput
+  itunes: CreatePublisherSourceRSSInput
+}
+
+input CreatePublisherSourceRSSInput {
+  url: String!
+}
+
+input CreatePublisherSourceYoutubeInput {
+  username: String
+  channelID: String
+  url: String
+}
+
+input CreatePublisherSourceTwitterInput {
+  username: String!
+}

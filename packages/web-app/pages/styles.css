@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.grid-rows-header {
+  grid-template-rows: 64px auto;
+}
+.grid-cols-sidebar {
+  grid-template-columns: 300px auto;
+}
