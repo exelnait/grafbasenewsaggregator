@@ -6,7 +6,7 @@ export class NewsItemModel {
   description?: string;
   type!: SourceType;
   coverUrl?: string;
-  publisher!: PublisherModel;
+  publisher?: PublisherModel;
   publishedAt!: Date;
   publishedAtFormatted = '';
 
@@ -25,7 +25,7 @@ export class NewsItemModel {
       type: data.type,
       description: data.description?.slice(0, 200) + '...',
       coverUrl: data.cover?.url,
-      publisher: PublisherModel.fromGraphQL(data.publisher),
+      publisher: data.publisher && PublisherModel.fromGraphQL(data.publisher),
       publishedAt: new Date(data.publishedAt),
       publishedAtFormatted:
         new Date(data.publishedAt).toLocaleDateString() +

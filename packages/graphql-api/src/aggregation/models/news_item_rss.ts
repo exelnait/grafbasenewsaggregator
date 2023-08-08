@@ -52,6 +52,9 @@ export class NewsItemRSS {
       categories,
       author,
       publishedDate,
+      coverUrl,
+      contentHtml,
+      contentJson,
     } = this.data;
     return {
       title,
@@ -69,6 +72,9 @@ export class NewsItemRSS {
         url,
         categories,
         author,
+        coverUrl,
+        contentHtml,
+        contentJson,
       },
     };
   }

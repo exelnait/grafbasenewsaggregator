@@ -45,10 +45,11 @@ export class NewsService {
       console.log(
         `Normalize news item time: ${performance.now() - startTime}ms`
       );
+      console.log(item.coverUrl);
       return data;
     } catch (e) {
       console.log('normalizeNewsItemFromRSS Error', e.message);
-      return null;
+      return data;
     }
   }
 

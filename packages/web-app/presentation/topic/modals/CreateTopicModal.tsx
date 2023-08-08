@@ -40,7 +40,7 @@ export function CreateTopicModal({
             label="Title"
             {...form.getInputProps('title')}
           />
-          <Group position="right" mt="md">
+          <Group justify="flex-end" my="md">
             <Button type="submit">Create</Button>
           </Group>
         </form>

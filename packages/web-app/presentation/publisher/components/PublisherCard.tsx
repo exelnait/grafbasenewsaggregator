@@ -7,12 +7,13 @@ interface IProps {
 export function PublisherCard({ publisher }: IProps) {
   return (
     <Button
-      isFullWidth={true}
-      variation="link"
+      fullWidth
+      variant="outline"
+      size={'lg'}
       key={publisher.id}
-      className="mx-1 !justify-start"
+      className="my-2 !justify-start"
     >
-      <div className="flex gap-x-6">
+      <div className="flex gap-x-6 ">
         <img className="h-8 w-8 rounded-md" src={publisher.avatarUrl} alt="" />
         <div>
           <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">

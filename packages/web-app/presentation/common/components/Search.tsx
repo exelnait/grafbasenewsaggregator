@@ -1,67 +1,53 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Spotlight, spotlight } from '@mantine/spotlight';
 import { Badge, Button, Center, Group, Text } from '@mantine/core';
 import { TextInput } from '@mantine/core';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { useSearchNewsFeedLazyQuery } from '../../../graphql/schema';
+import { NewsItemModel } from '../../../data/news/NewsItem.model';
+import { useAuth } from '@clerk/nextjs';
+import { useDebouncedValue } from '@mantine/hooks';
+import Link from 'next/link';
 
 export function Search() {
-  const data = [
-    {
-      image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
-      title: 'Bender Bending Rodríguez',
-      description: 'Fascinated with cooking, though has no sense of taste',
-      new: true,
-    },
-
-    {
-      image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
-      title: 'Carol Miller',
-      description: 'One of the richest people on Earth',
-      new: false,
-    },
-    {
-      image: 'https://img.icons8.com/clouds/256/000000/homer-simpson.png',
-      title: 'Homer Simpson',
-      description: 'Overweight, lazy, and often ignorant',
-      new: false,
-    },
-    {
-      image:
-        'https://img.icons8.com/clouds/256/000000/spongebob-squarepants.png',
-      title: 'Spongebob Squarepants',
-      description: 'Not just a sponge',
-      new: false,
-    },
-  ];
+  const { userId } = useAuth();
   const [query, setQuery] = useState('');
+  const [debouncedQuery] = useDebouncedValue(query, 300);
+  const [searchNews, { data, loading, error }] = useSearchNewsFeedLazyQuery();
 
-  const items = data
-    .filter((item) =>
-      item.title.toLowerCase().includes(query.toLowerCase().trim())
-    )
-    .map((item) => (
-      <Spotlight.Action key={item.title} onClick={() => console.log(item)}>
+  const newsItems =
+    data?.newsItemSearch?.edges.map((edge) =>
+      NewsItemModel.fromGraphQL(edge.node)
+    ) ?? [];
+
+  useEffect(() => {
+    if (debouncedQuery) {
+      searchNews({
+        variables: {
+          query: debouncedQuery,
+          userId: userId as string,
+        },
+      });
+    }
+  }, [debouncedQuery]);
+
+  const items = newsItems.map((item) => (
+    <Spotlight.Action key={item.title}>
+      <Link href={`/app/open/${item.type.toLowerCase()}/${item.id}`}>
         <Group wrap="nowrap" w="100%">
-          {item.image && (
+          {item.coverUrl && (
             <Center>
-              <img src={item.image} alt={item.title} width={50} height={50} />
+              <img src={item.coverUrl} alt={item.title} className="w-24" />
             </Center>
           )}
 
           <div style={{ flex: 1 }}>
             <Text>{item.title}</Text>
-
-            {item.description && (
-              <Text opacity={0.6} size="xs">
-                {item.description}
-              </Text>
-            )}
           </div>
-
-          {item.new && <Badge variant="default">new</Badge>}
         </Group>
-      </Spotlight.Action>
-    ));
+      </Link>
+    </Spotlight.Action>
+  ));
   return (
     <div className="inline-flex items-center pr-4">
       <TextInput

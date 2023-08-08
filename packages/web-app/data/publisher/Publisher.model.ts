@@ -11,7 +11,7 @@ export class PublisherModel {
     return new PublisherModel({
       id: data.id,
       title: data.title,
-      avatarUrl: data.avatar?.url?.medium,
+      avatarUrl: data.avatar?.url,
     });
   }
 }

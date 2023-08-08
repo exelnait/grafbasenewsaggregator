@@ -41,7 +41,7 @@ export class AggregationService {
           );
           const inputs = await Promise.all(
             normalisedNewsItems.map(async (item) => {
-              const coverUrl = item.data.coverUrl;
+              const coverUrl = item?.data.coverUrl;
               if (coverUrl) {
                 const coverFile = await saveFileByUrl({
                   url: coverUrl,
@@ -63,9 +63,13 @@ export class AggregationService {
           // Fetch and parse the YouTube XML feed
           const feed = await parseYouTubeXMLFeed(source.youtube.channelID);
           const feedItems = feed.entry;
-          let normalisedNewsItems = normalizeYouTubeXMLFeedData(feedItems).map(
-            (item) => NewsItemYouTube.fromNormalizedYouTubeXMLItem(item, source)
-          );
+          let normalisedNewsItems = normalizeYouTubeXMLFeedData(feedItems)
+            .map(
+              (item) =>
+                item &&
+                NewsItemYouTube.fromNormalizedYouTubeXMLItem(item, source)
+            )
+            .filter(Boolean);
           const inputs = await Promise.all(
             normalisedNewsItems.map(async (item) => {
               const coverUrl = item.data.coverUrl;
@@ -76,7 +80,9 @@ export class AggregationService {
                   key: `public/news/youtube/${titleBase64}/cover`,
                 });
                 const input = item.toInput();
-                input.cover.create = coverFile;
+                input.cover = {
+                  create: coverFile,
+                };
                 return input;
               } else {
                 return item.toInput();

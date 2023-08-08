@@ -17,10 +17,10 @@ query GetNewsFeed($userId: String!) {
     }
 }
 query SearchNewsFeed($userId: String!, $query: String!) {
-    newsItemSearch(filter: {creator: {eq: $userId}, title: { regex: $query }}, first: 100) {
+    newsItemSearch(query: $query, filter: {creator: {eq: $userId}}, first: 10) {
         edges {
             node {
-                id
+                ...BaseNewsItem
             }
         }
     }

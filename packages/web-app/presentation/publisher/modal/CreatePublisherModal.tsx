@@ -53,28 +53,31 @@ export function CreatePublisherModal({
             {...form.getInputProps('title')}
           />
           {form.getInputProps('sources').value.map((item, index) => (
-            <Group key={item.key} mt="xs">
+            <Group key={item.key} my="xs">
               <Select
+                w={100}
                 label="Source type"
                 {...form.getInputProps(`sources.${index}.type`)}
                 data={['youtube', 'rss']}
               />
               <TextInput
+                className={'flex-1'}
                 withAsterisk
                 label="Url"
-                fullWidth
                 {...form.getInputProps(`sources.${index}.url`)}
               />
             </Group>
           ))}
           <Button
+            mt="xs"
+            variant={'outline'}
             onClick={() =>
               form.insertListItem('sources', { type: 'rss', url: '' })
             }
           >
             Add source
           </Button>
-          <Group position="right" mt="md">
+          <Group justify="flex-end" my="md">
             <Button type="submit">Create</Button>
           </Group>
         </form>

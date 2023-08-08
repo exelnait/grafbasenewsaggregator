@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 export function downloadFileFromURL(fileUrl: string): Promise<Buffer> {
   return axios({
@@ -9,7 +10,6 @@ export function downloadFileFromURL(fileUrl: string): Promise<Buffer> {
 }
 
 const BUCKET = 'newsaggregator8688a98338a64a7da7d92178eafd61a6123111-dev';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 let client = new S3Client({
   region: 'eu-central-1',
@@ -29,6 +29,7 @@ export async function saveFileByUrl({
   if (!BUCKET) {
     throw new Error('BUCKET is not defined');
   }
+
   const buffer = await downloadFileFromURL(url);
   if (buffer) {
     await client.send(

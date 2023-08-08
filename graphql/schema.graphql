@@ -211,7 +211,6 @@ type NewsItem {
 }
 
 input NewsItemByInput {
-  creator: String
   id: ID
 }
 
@@ -641,7 +640,6 @@ type Publisher {
 }
 
 input PublisherByInput {
-  creator: String
   id: ID
 }
 
@@ -719,7 +717,6 @@ type PublisherSource {
 }
 
 input PublisherSourceByInput {
-  creator: String
   id: ID
 }
 
@@ -1175,7 +1172,6 @@ type Topic {
 }
 
 input TopicByInput {
-  creator: String
   id: ID
 }
 

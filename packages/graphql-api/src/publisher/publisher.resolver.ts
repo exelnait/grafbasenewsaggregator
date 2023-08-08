@@ -92,22 +92,24 @@ export class PublisherResolver {
     try {
       if (avatarUrl) {
         avatarFile = await saveFileByUrl({
-          url: input.avatarUrl,
+          url: avatarUrl,
           key: `public/publisher/${input.title.toLowerCase()}/avatar`,
         });
       }
     } catch (e) {
       console.error(e);
     }
+    console.log('avatarFile', avatarFile);
 
-    const createdPublisher = await this.publisherService.createdPublisher({
-      title: input.title,
-      topicID: input.topicID,
-      avatarBucket: avatarFile.bucket,
-      avatarKey: avatarFile.key,
-      creatorID: input.creatorID,
-      sourceRelations,
-    });
-    return createdPublisher;
+    // const createdPublisher = await this.publisherService.createdPublisher({
+    //   title: input.title,
+    //   topicID: input.topicID,
+    //   avatarBucket: avatarFile.bucket,
+    //   avatarKey: avatarFile.key,
+    //   creatorID: input.creatorID,
+    //   sourceRelations,
+    // });
+    // return createdPublisher;
+    return null;
   }
 }
