@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 
-import { useGetPublisherNewsFeedLazyQuery } from '../../../graphql/schema';
-import { NewsItemModel } from '../../../data/data';
-import { NewsCard } from '../../../presentation/news/components/NewsCard';
-import { PageLoader } from '../../../presentation/common/common.presentation';
+import { useGetPublisherNewsFeedLazyQuery } from '../../graphql/schema';
+import { NewsItemModel } from '../../data/data';
+import { NewsCard } from '../../presentation/news/components/NewsCard';
+import { PageLoader } from '../../presentation/common/common.presentation';
 import { useEffect } from 'react';
 import AppLayout from '../layout';
 

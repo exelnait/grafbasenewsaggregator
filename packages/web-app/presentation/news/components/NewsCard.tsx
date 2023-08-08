@@ -8,7 +8,7 @@ interface IProps {
 
 export function NewsCard({ data }: IProps) {
   return (
-    <Link href={`/app/open/${data.type.toLowerCase()}/${data.id}`}>
+    <Link href={`/open/${data.type.toLowerCase()}/${data.id}`}>
       <button
         type="button"
         className="flex bg-white hover:bg-gray-100 shadow overflow-hidden sm:rounded-lg mb-4 px-4 py-5 sm:px-6 w-full"

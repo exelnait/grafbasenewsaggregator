@@ -1,7 +1,7 @@
-import { useGetNewsFeedQuery } from '../../../graphql/schema';
-import { NewsItemModel } from '../../../data/data';
-import { NewsCard } from '../../../presentation/news/components/NewsCard';
-import { PageLoader } from '../../../presentation/common/components/PageLoader';
+import { useGetNewsFeedQuery } from '../../graphql/schema';
+import { NewsItemModel } from '../../data/data';
+import { NewsCard } from '../../presentation/news/components/NewsCard';
+import { PageLoader } from '../../presentation/common/components/PageLoader';
 import AppLayout from '../layout';
 import { useAuth } from '@clerk/nextjs';
 

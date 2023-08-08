@@ -7,14 +7,11 @@ import {
   NewsItemModel,
   SourceType,
   useGetNewsItemLazyQuery,
-} from '../../../../data/data';
-import { PageLoader } from '../../../../presentation/common/common.presentation';
+} from '../../../data/data';
+import { PageLoader } from '../../../presentation/common/common.presentation';
 import AppLayout from '../../layout';
 
-import {
-  Article,
-  Video,
-} from '../../../../presentation/news/news.presentation';
+import { Article, Video } from '../../../presentation/news/news.presentation';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 import { Button } from '@mantine/core';
 

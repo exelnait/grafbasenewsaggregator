@@ -33,7 +33,7 @@ export function Search() {
 
   const items = newsItems.map((item) => (
     <Spotlight.Action key={item.title}>
-      <Link href={`/app/open/${item.type.toLowerCase()}/${item.id}`}>
+      <Link href={`/open/${item.type.toLowerCase()}/${item.id}`}>
         <Group wrap="nowrap" w="100%">
           {item.coverUrl && (
             <Center>

@@ -144,7 +144,7 @@ export function Sidebar() {
       <ul className="space-y-2 font-medium mb-6 ">
         <li>
           <Link
-            href="/app/feed"
+            href="/feed"
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
           >
             <svg
@@ -159,7 +159,7 @@ export function Sidebar() {
             <span className="flex-1 ml-3 whitespace-nowrap">My Feed</span>
           </Link>
           <Link
-            href="/app/settings"
+            href="/settings"
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
           >
             <svg
@@ -183,10 +183,7 @@ export function Sidebar() {
               <div key={topic.id}>
                 <h3 className=" text-lg mb-2">{topic.title}</h3>
                 {topic.publishers.map((publisher) => (
-                  <Link
-                    key={publisher.id}
-                    href={`/app/publisher/${publisher.id}`}
-                  >
+                  <Link key={publisher.id} href={`/publisher/${publisher.id}`}>
                     <PublisherCard publisher={publisher}></PublisherCard>
                   </Link>
                 ))}

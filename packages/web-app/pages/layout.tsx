@@ -1,4 +1,4 @@
-import { MainLayout } from '../../presentation/common/layout/Main.layout';
+import { MainLayout } from '../presentation/common/layout/Main.layout';
 import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import { PropsWithChildren } from 'react';
 
