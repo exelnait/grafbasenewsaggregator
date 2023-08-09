@@ -19,17 +19,29 @@ const sourceType = g.enum('SourceType', ['rss', 'youtube']);
 // });
 
 const newsItemDataRSS = g.type('NewsItemDataRSS', {
-  contentHtml: g.string().optional(),
-  contentJson: g.string().optional(),
-  coverUrl: g.string().optional(),
   url: g.string(),
   categories: g.string().list().optional(),
   author: g.string().optional(),
+  // Will available after normalisation
+  contentHtml: g.string().optional(),
+  contentJson: g.string().optional(),
+  coverUrl: g.string().optional(),
+  // Will available after summarization
+  summary: g.string().optional(),
+});
+
+const newsItemDataYouTubeCaption = g.type('NewsItemDataYouTubeCaption', {
+  duration: g.float(),
+  start: g.float(),
+  text: g.string(),
 });
 
 const newsItemDataYouTube = g.type('NewsItemDataYouTube', {
   videoId: g.string(),
   coverUrl: g.string().optional(),
+  // Will available after normalisation
+  captions: g.ref(newsItemDataYouTubeCaption).list().optional(),
+  summary: g.string().optional(),
 });
 
 const newsItem = g
