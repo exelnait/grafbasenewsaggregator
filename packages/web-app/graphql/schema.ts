@@ -396,6 +396,7 @@ export type NewsItemDataRss = {
   contentHtml?: Maybe<Scalars['String']['output']>;
   contentJson?: Maybe<Scalars['String']['output']>;
   coverUrl?: Maybe<Scalars['String']['output']>;
+  summary?: Maybe<Scalars['String']['output']>;
   url: Scalars['String']['output'];
 };
 
@@ -406,18 +407,37 @@ export type NewsItemDataRssInput = {
   contentHtml?: InputMaybe<Scalars['String']['input']>;
   contentJson?: InputMaybe<Scalars['String']['input']>;
   coverUrl?: InputMaybe<Scalars['String']['input']>;
+  summary?: InputMaybe<Scalars['String']['input']>;
   url: Scalars['String']['input'];
 };
 
 export type NewsItemDataYouTube = {
   __typename?: 'NewsItemDataYouTube';
+  captions?: Maybe<Array<NewsItemDataYouTubeCaption>>;
   coverUrl?: Maybe<Scalars['String']['output']>;
+  summary?: Maybe<Scalars['String']['output']>;
   videoId: Scalars['String']['output'];
+};
+
+export type NewsItemDataYouTubeCaption = {
+  __typename?: 'NewsItemDataYouTubeCaption';
+  duration: Scalars['Float']['output'];
+  start: Scalars['Float']['output'];
+  text: Scalars['String']['output'];
+};
+
+/** NewsItemDataYouTubeCaption input type. */
+export type NewsItemDataYouTubeCaptionInput = {
+  duration: Scalars['Float']['input'];
+  start: Scalars['Float']['input'];
+  text: Scalars['String']['input'];
 };
 
 /** NewsItemDataYouTube input type. */
 export type NewsItemDataYouTubeInput = {
+  captions?: InputMaybe<Array<NewsItemDataYouTubeCaptionInput>>;
   coverUrl?: InputMaybe<Scalars['String']['input']>;
+  summary?: InputMaybe<Scalars['String']['input']>;
   videoId: Scalars['String']['input'];
 };
 
@@ -1469,6 +1489,21 @@ export type CreateNewsItemMutationVariables = Exact<{
 
 export type CreateNewsItemMutation = { __typename?: 'Mutation', newsItemCreateMany?: { __typename?: 'NewsItemCreateManyPayload', newsItemCollection: Array<{ __typename?: 'NewsItem', id: string, type: SourceType }> } | null };
 
+export type NewsItemUpdateMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  input: NewsItemUpdateInput;
+}>;
+
+
+export type NewsItemUpdateMutation = { __typename?: 'Mutation', newsItemUpdate?: { __typename?: 'NewsItemUpdatePayload', newsItem?: { __typename?: 'NewsItem', id: string } | null } | null };
+
+export type GetNewsItemFullQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type GetNewsItemFullQuery = { __typename?: 'Query', newsItem?: { __typename?: 'NewsItem', id: string, title: string, type: SourceType, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null, summary?: string | null, captions?: Array<{ __typename?: 'NewsItemDataYouTubeCaption', duration: number, start: number, text: string }> | null } | null, rss?: { __typename?: 'NewsItemDataRSS', contentHtml?: string | null, contentJson?: string | null, coverUrl?: string | null, summary?: string | null, url: string, categories?: Array<string> | null, author?: string | null } | null, topic?: { __typename?: 'Topic', id: string, title: string } | null, publisher?: { __typename?: 'Publisher', id: string, title: string } | null, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null } | null };
+
 export type CreatePublisherMutationMutationVariables = Exact<{
   title: Scalars['String']['input'];
   creatorID: Scalars['String']['input'];
@@ -1496,6 +1531,13 @@ export type GetNewsItemQueryVariables = Exact<{
 
 
 export type GetNewsItemQuery = { __typename?: 'Query', newsItem?: { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, rss?: { __typename?: 'NewsItemDataRSS', contentHtml?: string | null, url: string, coverUrl?: string | null } | null, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } } | null } | null };
+
+export type GetNewsItemWithSummaryQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type GetNewsItemWithSummaryQuery = { __typename?: 'Query', newsItem?: { __typename?: 'NewsItem', id: string, title: string, description?: string | null, type: SourceType, publishedAt: string, rss?: { __typename?: 'NewsItemDataRSS', contentHtml?: string | null, summary?: string | null, url: string, coverUrl?: string | null } | null, cover?: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } | null, youtube?: { __typename?: 'NewsItemDataYouTube', videoId: string, coverUrl?: string | null } | null, publisher?: { __typename?: 'Publisher', id: string, title: string, avatar: { __typename?: 'Picture', bucket: string, key: string, url?: any | null } } | null } | null };
 
 export type GetNewsFeedQueryVariables = Exact<{
   userId: Scalars['String']['input'];
@@ -1622,6 +1664,111 @@ export function useCreateNewsItemMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateNewsItemMutationHookResult = ReturnType<typeof useCreateNewsItemMutation>;
 export type CreateNewsItemMutationResult = Apollo.MutationResult<CreateNewsItemMutation>;
 export type CreateNewsItemMutationOptions = Apollo.BaseMutationOptions<CreateNewsItemMutation, CreateNewsItemMutationVariables>;
+export const NewsItemUpdateDocument = gql`
+    mutation NewsItemUpdate($id: ID!, $input: NewsItemUpdateInput!) {
+  newsItemUpdate(by: {id: $id}, input: $input) {
+    newsItem {
+      id
+    }
+  }
+}
+    `;
+export type NewsItemUpdateMutationFn = Apollo.MutationFunction<NewsItemUpdateMutation, NewsItemUpdateMutationVariables>;
+
+/**
+ * __useNewsItemUpdateMutation__
+ *
+ * To run a mutation, you first call `useNewsItemUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNewsItemUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [newsItemUpdateMutation, { data, loading, error }] = useNewsItemUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useNewsItemUpdateMutation(baseOptions?: Apollo.MutationHookOptions<NewsItemUpdateMutation, NewsItemUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<NewsItemUpdateMutation, NewsItemUpdateMutationVariables>(NewsItemUpdateDocument, options);
+      }
+export type NewsItemUpdateMutationHookResult = ReturnType<typeof useNewsItemUpdateMutation>;
+export type NewsItemUpdateMutationResult = Apollo.MutationResult<NewsItemUpdateMutation>;
+export type NewsItemUpdateMutationOptions = Apollo.BaseMutationOptions<NewsItemUpdateMutation, NewsItemUpdateMutationVariables>;
+export const GetNewsItemFullDocument = gql`
+    query GetNewsItemFull($id: ID!) {
+  newsItem(by: {id: $id}) {
+    id
+    youtube {
+      videoId
+      coverUrl
+      captions {
+        duration
+        start
+        text
+      }
+      summary
+    }
+    rss {
+      contentHtml
+      contentJson
+      coverUrl
+      summary
+      url
+      categories
+      author
+    }
+    topic {
+      id
+      title
+    }
+    publisher {
+      id
+      title
+    }
+    title
+    type
+    cover {
+      bucket
+      key
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetNewsItemFullQuery__
+ *
+ * To run a query within a React component, call `useGetNewsItemFullQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNewsItemFullQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNewsItemFullQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetNewsItemFullQuery(baseOptions: Apollo.QueryHookOptions<GetNewsItemFullQuery, GetNewsItemFullQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNewsItemFullQuery, GetNewsItemFullQueryVariables>(GetNewsItemFullDocument, options);
+      }
+export function useGetNewsItemFullLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNewsItemFullQuery, GetNewsItemFullQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNewsItemFullQuery, GetNewsItemFullQueryVariables>(GetNewsItemFullDocument, options);
+        }
+export type GetNewsItemFullQueryHookResult = ReturnType<typeof useGetNewsItemFullQuery>;
+export type GetNewsItemFullLazyQueryHookResult = ReturnType<typeof useGetNewsItemFullLazyQuery>;
+export type GetNewsItemFullQueryResult = Apollo.QueryResult<GetNewsItemFullQuery, GetNewsItemFullQueryVariables>;
 export const CreatePublisherMutationDocument = gql`
     mutation CreatePublisherMutation($title: String!, $creatorID: String!, $topicID: ID!, $avatarBucket: String!, $avatarKey: String!, $sourceRelations: [PublisherToPublisherSourceCreatePublisherSourceRelation!]!) {
   publisherCreate(
@@ -1757,6 +1904,45 @@ export function useGetNewsItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetNewsItemQueryHookResult = ReturnType<typeof useGetNewsItemQuery>;
 export type GetNewsItemLazyQueryHookResult = ReturnType<typeof useGetNewsItemLazyQuery>;
 export type GetNewsItemQueryResult = Apollo.QueryResult<GetNewsItemQuery, GetNewsItemQueryVariables>;
+export const GetNewsItemWithSummaryDocument = gql`
+    query GetNewsItemWithSummary($id: ID!) {
+  newsItem(by: {id: $id}) {
+    ...BaseNewsItem
+    rss {
+      contentHtml
+      summary
+    }
+  }
+}
+    ${BaseNewsItemFragmentDoc}`;
+
+/**
+ * __useGetNewsItemWithSummaryQuery__
+ *
+ * To run a query within a React component, call `useGetNewsItemWithSummaryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNewsItemWithSummaryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNewsItemWithSummaryQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetNewsItemWithSummaryQuery(baseOptions: Apollo.QueryHookOptions<GetNewsItemWithSummaryQuery, GetNewsItemWithSummaryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNewsItemWithSummaryQuery, GetNewsItemWithSummaryQueryVariables>(GetNewsItemWithSummaryDocument, options);
+      }
+export function useGetNewsItemWithSummaryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNewsItemWithSummaryQuery, GetNewsItemWithSummaryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNewsItemWithSummaryQuery, GetNewsItemWithSummaryQueryVariables>(GetNewsItemWithSummaryDocument, options);
+        }
+export type GetNewsItemWithSummaryQueryHookResult = ReturnType<typeof useGetNewsItemWithSummaryQuery>;
+export type GetNewsItemWithSummaryLazyQueryHookResult = ReturnType<typeof useGetNewsItemWithSummaryLazyQuery>;
+export type GetNewsItemWithSummaryQueryResult = Apollo.QueryResult<GetNewsItemWithSummaryQuery, GetNewsItemWithSummaryQueryVariables>;
 export const GetNewsFeedDocument = gql`
     query GetNewsFeed($userId: String!) {
   newsItemSearch(filter: {creator: {eq: $userId}}, first: 100) {

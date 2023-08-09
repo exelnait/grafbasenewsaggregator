@@ -5,6 +5,12 @@ import {
 } from '../../../../../graphql/generated/graphql';
 import { INormalizedYouTubeVideo } from '../../utils/youtube/normalize_youtube_xml_video_data';
 
+interface ICaption {
+  text: string;
+  start: number;
+  duration: number;
+}
+
 interface INewsItemYouTubeData {
   title: string;
   description: string;
@@ -14,6 +20,8 @@ interface INewsItemYouTubeData {
   publishedDate: string;
   videoId: string;
   coverUrl: string;
+  captions?: ICaption[];
+  summary?: string;
 }
 
 export class NewsItemYouTube {
@@ -49,6 +57,8 @@ export class NewsItemYouTube {
       publishedDate,
       videoId,
       coverUrl,
+      summary,
+      captions,
     } = this.data;
     return {
       title,
@@ -64,6 +74,8 @@ export class NewsItemYouTube {
       youtube: {
         videoId,
         coverUrl,
+        captions,
+        summary,
       },
       creator: creatorId,
     };

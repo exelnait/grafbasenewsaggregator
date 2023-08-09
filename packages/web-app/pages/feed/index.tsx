@@ -11,6 +11,7 @@ export default function NewsFeed() {
     variables: {
       userId: userId as string,
     },
+    errorPolicy: 'all',
   });
   const news =
     data?.newsItemSearch?.edges?.map((edge) =>

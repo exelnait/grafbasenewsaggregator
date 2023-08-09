@@ -75,11 +75,13 @@
     "html-to-article-json": "^1.20.1",
     "html-to-text": "^9.0.5",
     "linkify-html": "^4.1.1",
+    "openai": "^3.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.11.2",
     "reflect-metadata": "^0.1.13",
     "request-image-size": "^2.2.0",
-    "rss-parser": "^3.13.0"
+    "rss-parser": "^3.13.0",
+    "youtube-transcript": "^1.0.6"
   }
 }

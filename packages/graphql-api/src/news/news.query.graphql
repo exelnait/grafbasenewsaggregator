@@ -1,0 +1,39 @@
+query GetNewsItemFull($id: ID!) {
+    newsItem(by: {id: $id}) {
+        id
+        youtube {
+            videoId
+            coverUrl
+            captions {
+                duration
+                start
+                text
+            }
+            summary
+        }
+        rss {
+            contentHtml
+            contentJson
+            coverUrl
+            summary
+            url
+            categories
+            author
+        }
+        topic {
+            id
+            title
+        }
+        publisher {
+            id
+            title
+        }
+        title
+        type
+        cover {
+            bucket
+            key
+            url
+        }
+    }
+}

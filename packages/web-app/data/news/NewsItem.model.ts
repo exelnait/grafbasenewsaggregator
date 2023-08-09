@@ -11,8 +11,8 @@ export class NewsItemModel {
   publishedAtFormatted = '';
 
   content?: string;
+  summary?: string;
   videoId?: string;
-  audioUrl?: string;
 
   constructor(data: NewsItemModel) {
     Object.assign(this, data);
@@ -38,6 +38,7 @@ export class NewsItemModel {
           ...baseFields,
           coverUrl: baseFields.coverUrl || data.rss?.coverUrl,
           content: data.rss?.contentHtml,
+          summary: data.rss?.summary,
         };
       case SourceType.Youtube:
         return {

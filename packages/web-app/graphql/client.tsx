@@ -33,7 +33,23 @@ export const ApolloProviderWrapper = ({ children }: PropsWithChildren) => {
 
     return new ApolloClient({
       link: from([authMiddleware, httpLink]),
-      cache: new InMemoryCache(),
+      cache: new InMemoryCache({
+        typePolicies: {
+          NewsItem: {
+            fields: {
+              rss: {
+                merge(existing = [], incoming: any[]) {
+                  return {
+                    ...existing,
+                    ...incoming,
+                  };
+                },
+              },
+            },
+          },
+        },
+      }),
+      connectToDevTools: true,
     });
   }, [getToken]);
 

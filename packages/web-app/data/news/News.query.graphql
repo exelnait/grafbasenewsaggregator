@@ -6,6 +6,15 @@ query GetNewsItem($id: ID!) {
         }
     }
 }
+query GetNewsItemWithSummary($id: ID!) {
+    newsItem(by: { id: $id }) {
+        ...BaseNewsItem
+        rss {
+            contentHtml
+            summary
+        }
+    }
+}
 
 query GetNewsFeed($userId: String!) {
     newsItemSearch(filter: {creator: {eq: $userId}, }first: 100) {

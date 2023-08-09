@@ -257,6 +257,7 @@ type NewsItemDataRSS {
   contentHtml: String
   contentJson: String
   coverUrl: String
+  summary: String
   url: String!
 }
 
@@ -267,17 +268,35 @@ input NewsItemDataRSSInput {
   contentHtml: String
   contentJson: String
   coverUrl: String
+  summary: String
   url: String!
 }
 
 type NewsItemDataYouTube {
+  captions: [NewsItemDataYouTubeCaption!]
   coverUrl: String
+  summary: String
   videoId: String!
+}
+
+type NewsItemDataYouTubeCaption {
+  duration: Float!
+  start: Float!
+  text: String!
+}
+
+"""NewsItemDataYouTubeCaption input type."""
+input NewsItemDataYouTubeCaptionInput {
+  duration: Float!
+  start: Float!
+  text: String!
 }
 
 """NewsItemDataYouTube input type."""
 input NewsItemDataYouTubeInput {
+  captions: [NewsItemDataYouTubeCaptionInput!]
   coverUrl: String
+  summary: String
   videoId: String!
 }
 

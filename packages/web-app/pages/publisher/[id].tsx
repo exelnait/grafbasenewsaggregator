@@ -18,6 +18,7 @@ export default function PublisherNewsFeed() {
         variables: {
           id: publisherId as string,
         },
+        errorPolicy: 'all',
       });
     }
   }, [router.query]);
