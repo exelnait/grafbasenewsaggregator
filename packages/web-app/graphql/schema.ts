@@ -74,8 +74,8 @@ export type CustomMutationCreatePublisherArgs = {
 export type CustomNewsItem = {
   __typename?: 'CustomNewsItem';
   id: Scalars['String']['output'];
-  rss: CustomNewsItemRss;
-  youtube: CustomNewsItemYouTube;
+  rss?: Maybe<CustomNewsItemRss>;
+  youtube?: Maybe<CustomNewsItemYouTube>;
 };
 
 export type CustomNewsItemRss = {
@@ -1532,7 +1532,7 @@ export type CreatePublisherMutationMutationVariables = Exact<{
 }>;
 
 
-export type CreatePublisherMutationMutation = { __typename?: 'Mutation', publisherCreate?: { __typename?: 'PublisherCreatePayload', publisher?: { __typename?: 'Publisher', id: string, title: string } | null } | null };
+export type CreatePublisherMutationMutation = { __typename?: 'Mutation', publisherCreate?: { __typename?: 'PublisherCreatePayload', publisher?: { __typename?: 'Publisher', id: string, title: string, sources?: { __typename?: 'PublisherSourceConnection', edges?: Array<{ __typename?: 'PublisherSourceEdge', node: { __typename?: 'PublisherSource', id: string, type: SourceType, creator: string, publisher: { __typename?: 'Publisher', id: string }, topic: { __typename?: 'Topic', id: string }, rss?: { __typename?: 'PublisherSourceRSS', url: string } | null, youtube?: { __typename?: 'PublisherSourceYouTube', username?: string | null, channelID?: string | null } | null } } | null> | null } | null } | null } | null };
 
 export type PublisherSourceSearchByTypeQueryVariables = Exact<{
   type: SourceType;
@@ -1555,7 +1555,7 @@ export type GetNewsItemWithSummaryQueryVariables = Exact<{
 }>;
 
 
-export type GetNewsItemWithSummaryQuery = { __typename?: 'Query', custom: { __typename?: 'CustomQuery', getNewsItem: { __typename?: 'CustomNewsItem', id: string, rss: { __typename?: 'CustomNewsItemRSS', summary: string, contentHtml: string }, youtube: { __typename?: 'CustomNewsItemYouTube', summary: string } } } };
+export type GetNewsItemWithSummaryQuery = { __typename?: 'Query', custom: { __typename?: 'CustomQuery', getNewsItem: { __typename?: 'CustomNewsItem', id: string, rss?: { __typename?: 'CustomNewsItemRSS', summary: string, contentHtml: string } | null, youtube?: { __typename?: 'CustomNewsItemYouTube', summary: string } | null } } };
 
 export type GetNewsFeedQueryVariables = Exact<{
   userId: Scalars['String']['input'];
@@ -1796,6 +1796,28 @@ export const CreatePublisherMutationDocument = gql`
     publisher {
       id
       title
+      sources {
+        edges {
+          node {
+            id
+            type
+            creator
+            publisher {
+              id
+            }
+            topic {
+              id
+            }
+            rss {
+              url
+            }
+            youtube {
+              username
+              channelID
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -2123,7 +2145,7 @@ export type CreatePublisherMutationResult = Apollo.MutationResult<CreatePublishe
 export type CreatePublisherMutationOptions = Apollo.BaseMutationOptions<CreatePublisherMutation, CreatePublisherMutationVariables>;
 export const ListUserPublishersDocument = gql`
     query ListUserPublishers($creatorID: String!) {
-  topicSearch(first: 10, query: $creatorID) {
+  topicSearch(first: 10, filter: {creator: {eq: $creatorID}}) {
     edges {
       node {
         ...BaseTopic

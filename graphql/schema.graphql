@@ -47,8 +47,8 @@ type CustomMutation {
 
 type CustomNewsItem {
   id: String!
-  rss: CustomNewsItemRSS!
-  youtube: CustomNewsItemYouTube!
+  rss: CustomNewsItemRSS
+  youtube: CustomNewsItemYouTube
 }
 
 type CustomNewsItemRSS {

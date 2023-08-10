@@ -105,7 +105,7 @@ const publisher = g.model('Publisher', {
   title: g.string(),
   creator: g.string(),
   topic: g.relation(() => topic),
-  avatar: g.relation(() => picture),
+  avatar: g.relation(() => picture).optional(),
   news: g
     .relation(() => newsItem)
     .list()

@@ -23,6 +23,28 @@ mutation CreatePublisherMutation(
         publisher {
             id
             title
+            sources {
+                edges {
+                    node {
+                        id
+                        type
+                        creator
+                        publisher {
+                            id
+                        }
+                        topic {
+                            id
+                        }
+                        rss {
+                            url
+                        }
+                        youtube {
+                            username
+                            channelID
+                        }
+                    }
+                }
+            }
         }
     }
 }

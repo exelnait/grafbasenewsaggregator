@@ -45,6 +45,28 @@ export class PublisherService {
         publisher {
             id
             title
+            sources(first:10) {
+            edges {
+            node {
+                id
+                type
+                creator
+                publisher {
+                    id
+                }
+                topic {
+                    id
+                }
+                rss {
+                    url
+                }
+                youtube {
+                    username
+                    channelID
+                }
+            }
+        }
+        }
         }
     }
 }

@@ -7,5 +7,6 @@ import { NewsService } from './news.service';
 @Global()
 @Module({
   providers: [NewsResolver, AggregationService, PublisherService, NewsService],
+  exports: [NewsService, AggregationService],
 })
 export class NewsItemModule {}

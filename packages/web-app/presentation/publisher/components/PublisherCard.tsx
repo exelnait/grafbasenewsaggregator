@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core';
 import { PublisherModel } from '../../../data/publisher/Publisher.model';
+import { PublisherAvatar } from './PublisherAvatar';
 interface IProps {
   publisher: PublisherModel;
 }
@@ -14,7 +15,7 @@ export function PublisherCard({ publisher }: IProps) {
       className="my-2 !justify-start"
     >
       <div className="flex gap-x-6 ">
-        <img className="h-8 w-8 rounded-md" src={publisher.avatarUrl} alt="" />
+        <PublisherAvatar title={publisher.title} src={publisher.avatarUrl} />
         <div>
           <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900 dark:text-white">
             {publisher.title}

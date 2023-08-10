@@ -10,6 +10,9 @@ function getResizedPictureUrl(
   width?: number,
   height?: number
 ): string {
+  if (bucket == '' && key == '') {
+    return null;
+  }
   const params: Record<string, any> = {
     bucket,
     key,

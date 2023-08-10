@@ -12,10 +12,17 @@ import {
   getChannelInfoById,
   getChannelInfoByUsername,
 } from '../utils/youtube/youtube_api';
+import { AggregationService } from '../news/aggregation.service';
+import { NewsService } from '../news/news.service';
+import { PublisherSource } from '../../../web-app/graphql/schema';
 
 @Resolver(() => Publisher)
 export class PublisherResolver {
-  constructor(private readonly publisherService: PublisherService) {}
+  constructor(
+    private readonly publisherService: PublisherService,
+    private readonly aggregationService: AggregationService,
+    private readonly newsService: NewsService
+  ) {}
 
   @Mutation(() => Publisher)
   async createPublisher(
@@ -101,15 +108,27 @@ export class PublisherResolver {
     }
     console.log('avatarFile', avatarFile);
 
-    // const createdPublisher = await this.publisherService.createdPublisher({
-    //   title: input.title,
-    //   topicID: input.topicID,
-    //   avatarBucket: avatarFile.bucket,
-    //   avatarKey: avatarFile.key,
-    //   creatorID: input.creatorID,
-    //   sourceRelations,
-    // });
-    // return createdPublisher;
-    return null;
+    const createdPublisher = await this.publisherService.createdPublisher({
+      title: input.title,
+      topicID: input.topicID,
+      avatarBucket: avatarFile.bucket,
+      avatarKey: avatarFile.key,
+      creatorID: input.creatorID,
+      sourceRelations,
+    });
+    console.log(createdPublisher);
+
+    const newsItemCreateInputs =
+      await this.aggregationService.aggregateNewsBySources(
+        // @ts-ignore
+        createdPublisher.sources.edges.map(
+          (source) => source.node as PublisherSource
+        )
+      );
+
+    console.log('News create count: ', newsItemCreateInputs.length);
+    await this.newsService.createNewsItems(newsItemCreateInputs);
+
+    return createdPublisher;
   }
 }

@@ -1,5 +1,5 @@
 query ListUserPublishers($creatorID: String!) {
-    topicSearch(first: 10, query: $creatorID) {
+    topicSearch(first: 10, filter: {creator: {eq: $creatorID}}) {
         edges {
             node {
                 ...BaseTopic

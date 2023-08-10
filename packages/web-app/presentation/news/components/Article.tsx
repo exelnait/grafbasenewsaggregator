@@ -1,5 +1,6 @@
 import { NewsItemModel } from '../../../data/news/NewsItem.model';
 import styles from './Article.module.css';
+import { PublisherAvatar } from '../../publisher/components/PublisherAvatar';
 
 interface IProps {
   item: NewsItemModel;
@@ -17,10 +18,9 @@ export function Article({ item }: IProps) {
           {item.publisher && (
             <div className="flex justify-between">
               <div className="flex gap-x-6">
-                <img
-                  className="h-4 w-4 rounded-sm"
+                <PublisherAvatar
+                  title={item.publisher.title}
                   src={item.publisher.avatarUrl}
-                  alt=""
                 />
                 <div>
                   <h3 className="text-base leading-4 tracking-tight text-gray-900 dark:text-white">

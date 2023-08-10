@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { NewsItemModel, SourceType } from '../../../data/data';
 import { BackgroundImage, Box } from '@mantine/core';
 import { RssIcon, VideoCameraIcon } from '@heroicons/react/20/solid';
+import { PublisherAvatar } from '../../publisher/components/PublisherAvatar';
 
 interface IProps {
   data: NewsItemModel;
@@ -27,11 +28,11 @@ export function NewsCard({ data }: IProps) {
                 {data.type === SourceType.Rss && <RssIcon />}
                 {data.type === SourceType.Youtube && <VideoCameraIcon />}
               </Box>
-              <img
-                className="h-4 w-4 rounded-sm"
+              <PublisherAvatar
+                title={data.publisher.title}
                 src={data.publisher.avatarUrl}
-                alt=""
               />
+
               <h3 className="text-base tracking-tight text-gray-900 dark:text-white">
                 {data.publisher.title}
               </h3>
