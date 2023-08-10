@@ -47,6 +47,17 @@ type CustomMutation {
 
 type CustomNewsItem {
   id: String!
+  rss: CustomNewsItemRSS!
+  youtube: CustomNewsItemYouTube!
+}
+
+type CustomNewsItemRSS {
+  contentHtml: String!
+  summary: String!
+}
+
+type CustomNewsItemYouTube {
+  summary: String!
 }
 
 type CustomPublisher {
@@ -54,7 +65,7 @@ type CustomPublisher {
 }
 
 type CustomQuery {
-  sayHello: String!
+  getNewsItem(id: String!): CustomNewsItem!
 }
 
 """

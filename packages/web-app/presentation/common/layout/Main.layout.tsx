@@ -4,7 +4,7 @@ import { Search } from '../components/Search';
 
 export function MainLayout({ children }: PropsWithChildren) {
   return (
-    <div className="grid min-h-screen grid-rows-header bg-zinc-100">
+    <div className="grid min-h-screen grid-rows-header bg-zinc-100 dark:bg-gray-700">
       <Navbar>
         <Logo />
         <div>

@@ -23,7 +23,7 @@ export function Article({ item }: IProps) {
                   alt=""
                 />
                 <div>
-                  <h3 className="text-base leading-4 tracking-tight text-gray-900">
+                  <h3 className="text-base leading-4 tracking-tight text-gray-900 dark:text-white">
                     {item.publisher.title}
                   </h3>
                 </div>

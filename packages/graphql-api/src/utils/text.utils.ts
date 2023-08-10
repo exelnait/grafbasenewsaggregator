@@ -5,20 +5,41 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export async function summarizeVideoCaptions(content: string): Promise<string> {
-  const prompt = `Please summary this youtube video transcript. Size should be 1/10 of original content and split to paragraphs: ${content}`;
+export async function summarizeVideoCaptions(
+  transcript: string
+): Promise<string> {
+  const pre_prompt =
+    'Summarize the following video transcript, focusing on the main points and arguments. The summary should be short and complete. Maximum three sentences. Return result in the following format: • [sentence]\n' +
+    '\n\n\n';
 
+  const prompt = pre_prompt + transcript;
   const completion = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
+    temperature: 0.7,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+    max_tokens: 400,
+    n: 1,
     messages: [{ role: 'user', content: prompt }],
   });
   return completion?.data?.choices[0].message.content;
 }
-export async function summarizeArticle(content: string): Promise<string> {
-  const prompt = `Please summary this Article. in 3 sentences. each max size: 50 symbols: ${content}`;
+export async function summarizeArticle(article: string): Promise<string> {
+  const pre_prompt =
+    'Summarize the following article/text, focusing on the main points and arguments. The summary should be short and complete. Maximum three sentences. Return result in the following format: • [sentence]\n' +
+    '\n\n\n';
+
+  const prompt = pre_prompt + article;
 
   const completion = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
+    temperature: 0.7,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+    max_tokens: 400,
+    n: 1,
     messages: [{ role: 'user', content: prompt }],
   });
   return completion?.data?.choices[0].message.content;

@@ -17,7 +17,7 @@ export function Video({ item }: IProps) {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           ></iframe>
-          <h1 className="mb-4 text-2xl font-bold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
+          <h1 className="mb-4 text-2xl font-bold leading-tight text-gray-900 dark:text-white lg:mb-6 lg:text-4xl dark:text-white">
             {item.title}
           </h1>
           {item.publisher && (
@@ -29,7 +29,7 @@ export function Video({ item }: IProps) {
                   alt=""
                 />
                 <div>
-                  <h3 className="text-base leading-4 tracking-tight text-gray-900">
+                  <h3 className="text-base leading-4 tracking-tight text-gray-900 dark:text-white">
                     {item.publisher.title}
                   </h3>
                 </div>

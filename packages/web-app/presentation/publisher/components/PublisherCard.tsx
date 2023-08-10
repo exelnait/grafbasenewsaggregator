@@ -16,7 +16,7 @@ export function PublisherCard({ publisher }: IProps) {
       <div className="flex gap-x-6 ">
         <img className="h-8 w-8 rounded-md" src={publisher.avatarUrl} alt="" />
         <div>
-          <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
+          <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900 dark:text-white">
             {publisher.title}
           </h3>
         </div>

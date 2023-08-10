@@ -1,6 +1,6 @@
 import React, { useDeferredValue, useState } from 'react';
 import Link from 'next/link';
-import { Button } from '@mantine/core';
+import { Button, Center, Loader } from '@mantine/core';
 import { PlusIcon } from '@heroicons/react/20/solid';
 import {
   ListUserPublishersDocument,
@@ -177,6 +177,11 @@ export function Sidebar() {
         </li>
       </ul>
       <TopicsWrapper>
+        {loadingListPublishers && (
+          <Center>
+            <Loader />
+          </Center>
+        )}
         {topics.map(
           (topic) =>
             topic && (

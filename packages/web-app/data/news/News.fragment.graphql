@@ -12,6 +12,7 @@ fragment BaseNewsItem on NewsItem {
     rss {
         url
         coverUrl
+        contentHtml
     }
     youtube {
         videoId

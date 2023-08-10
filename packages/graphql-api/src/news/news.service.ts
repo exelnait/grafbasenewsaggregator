@@ -182,16 +182,10 @@ export class NewsService {
         youtube {
             videoId
             coverUrl
-            captions {
-                duration
-                start
-                text
-            }
             summary
         }
         rss {
             contentHtml
-            contentJson
             coverUrl
             summary
             url

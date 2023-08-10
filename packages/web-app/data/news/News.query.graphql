@@ -1,17 +1,19 @@
 query GetNewsItem($id: ID!) {
     newsItem(by: { id: $id }) {
         ...BaseNewsItem
-        rss {
-            contentHtml
-        }
     }
 }
-query GetNewsItemWithSummary($id: ID!) {
-    newsItem(by: { id: $id }) {
-        ...BaseNewsItem
-        rss {
-            contentHtml
-            summary
+query GetNewsItemWithSummary($id: String!) {
+    custom {
+        getNewsItem(id: $id) {
+            id
+            rss {
+                summary
+                contentHtml
+            }
+            youtube {
+                summary
+            }
         }
     }
 }

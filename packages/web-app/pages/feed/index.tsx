@@ -4,6 +4,7 @@ import { NewsCard } from '../../presentation/news/components/NewsCard';
 import { PageLoader } from '../../presentation/common/components/PageLoader';
 import AppLayout from '../layout';
 import { useAuth } from '@clerk/nextjs';
+import { useEffect } from 'react';
 
 export default function NewsFeed() {
   const { userId } = useAuth();
@@ -13,10 +14,17 @@ export default function NewsFeed() {
     },
     errorPolicy: 'all',
   });
+
   const news =
-    data?.newsItemSearch?.edges?.map((edge) =>
-      NewsItemModel.fromGraphQL(edge.node)
-    ) ?? [];
+    data?.newsItemSearch?.edges
+      ?.map((edge) => NewsItemModel.fromGraphQL(edge.node))
+      .sort((a, b) => {
+        if (a.publishedAt && b.publishedAt) {
+          return b.publishedAt.getTime() - a.publishedAt.getTime();
+        }
+        return 0;
+      }) ?? [];
+
   return (
     <div className="mx-auto w-full max-w-[800px] p-3">
       {loading && <PageLoader />}
