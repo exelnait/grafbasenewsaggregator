@@ -1,14 +1,15 @@
-import { Button } from '@mantine/core';
 import AppLayout from '../layout';
-import { useAuth } from '@clerk/nextjs';
+import {UserProfile} from '@clerk/nextjs';
 
 export default function Settings() {
-  const { signOut } = useAuth();
   return (
-    <div className="mx-auto w-full max-w-[600px] p-3 flex flex-col gap-4">
-      <Button fullWidth onClick={() => signOut()}>
-        Sign out
-      </Button>
+    <div className="mx-auto w-full max-w-[800px] p-3 flex flex-col gap-4">
+      <UserProfile appearance={{
+        elements: {
+            card: "shadow-none bg-transparent",
+            navbar: "hidden"
+        }
+      }} />
     </div>
   );
 }
