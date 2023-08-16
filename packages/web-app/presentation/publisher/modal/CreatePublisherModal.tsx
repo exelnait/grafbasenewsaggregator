@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import { Modal, IModalProps } from '../../common/components/Modal';
-import { SourceType } from '../../../graphql/schema';
-import { useForm } from '@mantine/form';
-import { Button, Container, Group, Select, TextInput } from '@mantine/core';
+import {IModalProps, Modal} from '../../common/components/Modal';
+import {SourceType} from '../../../graphql/schema';
+import {useForm} from '@mantine/form';
+import {Button, ButtonGroup, Container, Divider, Group, Select, Text, TextInput} from '@mantine/core';
 
 interface IProps extends IModalProps {
   topicTitle: string;
@@ -21,6 +21,53 @@ export interface CreatePublisherFormData {
   sources: PublisherSourceFormData[];
 }
 
+const PUBLISHERS: CreatePublisherFormData[] = [{
+  title: 'Engadget',
+  sources: [{
+    type: SourceType.Rss,
+    url: 'https://www.engadget.com/rss.xml',
+  }, {
+    type: SourceType.Youtube,
+    url: 'https://www.youtube.com/@Engadget',
+  }]
+}, {
+    title: 'Verge',
+    sources: [{
+        type: SourceType.Rss,
+        url: 'https://www.theverge.com/rss/index.xml',
+    }, {
+        type: SourceType.Youtube,
+        url: 'https://www.youtube.com/@TheVerge',
+    }]
+}, {
+    title: 'IGN',
+    sources: [{
+        type: SourceType.Rss,
+        url: 'http://feeds.feedburner.com/ign/all',
+    }, {
+        type: SourceType.Youtube,
+        url: 'https://www.youtube.com/@IGN',
+    }]
+}, {
+    title: 'Kotaku',
+    sources: [{
+        type: SourceType.Rss,
+        url: 'https://kotaku.com/rss',
+    }, {
+        type: SourceType.Youtube,
+        url: 'https://www.youtube.com/@Kotaku',
+    }]
+}, {
+    title: 'Techcrunch',
+    sources: [{
+        type: SourceType.Rss,
+        url: 'https://techcrunch.com/feed/',
+    }, {
+        type: SourceType.Youtube,
+        url: 'https://www.youtube.com/@TechCrunch',
+    }]
+}]
+
 export function CreatePublisherModal({
   isOpen,
   isLoading,
@@ -28,7 +75,7 @@ export function CreatePublisherModal({
   onSubmit,
   topicTitle,
 }: IProps) {
-  const form = useForm({
+  const form = useForm<CreatePublisherFormData>({
     initialValues: {
       title: '',
       sources: [],
@@ -77,6 +124,19 @@ export function CreatePublisherModal({
           >
             Add source
           </Button>
+            <Text variant="sm" my={10}>or select from existing publishers</Text>
+            <ButtonGroup>
+                {PUBLISHERS.map((publisher) => (
+                    <Button
+                        key={publisher.title}
+                        variant="outline"
+                        onClick={() => form.setValues(publisher)}
+                    >
+                        {publisher.title}
+                    </Button>
+                ))}
+            </ButtonGroup>
+            <Divider my={20}/>
           <Group justify="flex-end" my="md">
             <Button type="submit">Create</Button>
           </Group>
